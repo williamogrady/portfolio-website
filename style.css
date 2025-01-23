@@ -58,3 +58,8 @@ section h2 {
     color: #444;
     margin-bottom: 10px;
 }
+
+#download {
+    text-align: center;
+    margin: auto;
+}
