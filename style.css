@@ -60,6 +60,9 @@ section h2 {
 }
 
 #download {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    margin: auto;
+    margin: 20px;
 }
