@@ -1,0 +1,259 @@
+/* wireframe.css (minimalist, transparent containers) */
+
+/* CSS load marker (JS checks this) */
+:root { --css-ok: 1; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Ensure form controls inherit the site font */
+button, input, textarea, select {
+  font: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Never scroll */
+html, body { height: 100%; overflow: hidden; }
+
+/* Set Raleway as the global default */
+html {
+  font-family: "Raleway", ui-sans-serif, system-ui, -apple-system,
+               Segoe UI, Roboto, Helvetica, Arial;
+}
+
+body {
+  font-family: inherit;
+  background: #ffffff;
+  color: #111111;
+  font-weight: 400;
+}
+
+
+/* Big margins, big rhythm */
+#frame {
+  height: 100vh;
+  padding: 96px 140px;   /* ↑↑ BIGGER SIDE MARGINS */
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+/* Header */
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.name {
+  font-family: "Raleway";
+  font-size: clamp(56px, 5.2vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+
+.subtitle {
+  font-family: "Raleway", ui-sans-serif, system-ui;
+  margin-top: 18px;
+  font-size: clamp(22px, 1.9vw, 28px);
+  line-height: 1.3;
+  color: rgba(17, 17, 17, 0.7);
+  font-weight: 400;
+}
+
+
+.contact-block {
+  text-align: right;
+  font-size: clamp(14px, 1.1vw, 18px);
+  line-height: 1.7;
+  color: rgba(17, 17, 17, 0.70);
+  white-space: nowrap;
+}
+
+/* Tabs */
+#tabs {
+  display: flex;
+  gap: 22px;
+  align-items: baseline;
+}
+
+.tab {
+  cursor: pointer;
+  font-size: 26px;       /* BIGGER */
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(17, 17, 17, 0.45);
+  padding: 8px 0;
+}
+
+.tab.active {
+  color: rgba(17, 17, 17, 1);
+}
+
+
+/* Stage: fills remaining space, no scroll */
+#stage {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+/* Text blocks */
+.big-text {
+  font-size: clamp(22px, 1.8vw, 26px);
+  line-height: 1.6;
+  max-width: 72ch;
+  white-space: pre-line;
+}
+
+
+
+/* About columns */
+/* About: structured sections */
+.about-section {
+  margin-top: 22px;
+}
+
+.about-section-title {
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.45);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.about-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-item-title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(17, 17, 17, 0.95);
+}
+
+.about-item-meta {
+  margin-top: 4px;
+  font-size: 16px;
+  color: rgba(17, 17, 17, 0.55);
+}
+
+.about-item-detail {
+  margin-top: 6px;
+  font-size: 18px;
+  line-height: 1.45;
+  color: rgba(17, 17, 17, 0.72);
+}
+
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+
+.column h3 {
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(17, 17, 17, 0.45);
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+
+
+.column ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 20px;
+  line-height: 1.45;
+}
+
+
+.column li { color: rgba(17, 17, 17, 0.92); }
+
+/* Work list */
+.work-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+}
+
+.work-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px 24px;
+  align-items: start;
+  padding-top: 18px;
+}
+
+.work-item:first-child { padding-top: 0; }
+
+.work-item + .work-item {
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.work-title {
+  font-size: 24px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  font-weight: 500;
+}
+
+
+.work-date {
+  font-size: 18px;
+  color: rgba(17, 17, 17, 0.45);
+  white-space: nowrap;
+}
+
+
+.work-desc {
+  grid-column: 1 / 3;
+  font-size: 20px;
+  line-height: 1.5;
+  color: rgba(17, 17, 17, 0.72);
+
+  overflow: hidden;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+
+  line-clamp: 2;
+}
+
+
+/* Responsive */
+@media (max-width: 1100px) {
+  #frame {
+    padding: 48px;
+    gap: 32px;
+  }
+  #header { flex-direction: column; }
+  .contact-block { text-align: left; white-space: normal; }
+
+  .columns { grid-template-columns: 1fr; gap: 26px; }
+
+  .work-item { grid-template-columns: 1fr; }
+  .work-date { grid-column: 1; }
+  .work-desc {
+    grid-column: 1;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+}

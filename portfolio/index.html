@@ -1,0 +1,50 @@
+<!-- index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>William O'Grady Portfolio</title>
+
+  <!-- Google Font: Raleway -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+
+  <!-- cache bust -->
+  <link rel="stylesheet" href="./css/wireframe.css" />
+  <script defer src="./js/main.js"></script>
+
+  <!-- tiny inline fallback ONLY for debugging: if CSS fails, you’ll still see readable text -->
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+  </style>
+</head>
+
+<body>
+  <div id="frame">
+    <header id="header">
+      <div class="title-block">
+        <div class="name">William O'Grady</div>
+        <div class="subtitle">Design Engineer</div>
+      </div>
+
+      <div class="contact-block">
+        <div>ogrady@kth.se</div>
+        <div>github.com/williamogrady</div>
+        <div>linkedin.com/in/williamjogrady</div>
+      </div>
+    </header>
+
+    <nav id="tabs" aria-label="Sections">
+      <button class="tab active" data-tab="intro" type="button">Intro</button>
+      <button class="tab" data-tab="about" type="button">About</button>
+      <button class="tab" data-tab="work" type="button">Work</button>
+    </nav>
+
+    <main id="stage" aria-live="polite"></main>
+  </div>
+</body>
+</html>
