@@ -1,99 +1,35 @@
-// main.js
 const stage = document.getElementById("stage");
 const tabs = Array.from(document.querySelectorAll(".tab"));
 
 let activeTab = "intro";
+let DATA = null;
 
-const DATA = {
-  intro: {
-    text:
-      "I design calm interfaces for complex systems.\n" +
-      "My focus is interaction design + data visualization.\n" +
-      "Currently building and evaluating an interactive power-grid prototype."
-  },
- about: {
-  skills: {
-    areas: [
-      {
-        title: "Interaction Design",
-        detail: "Information hierarchy, layout systems, affordances, usability."
-      },
-      {
-        title: "Data Visualization",
-        detail: "Designing visual encodings for state, constraints, and trade-offs."
-      },
-      {
-        title: "User Studies",
-        detail: "Study design, think-aloud sessions, surveys, mixed-method analysis."
-      }
-    ],
-    programming: [
-      {
-        title: "JavaScript / TypeScript",
-        detail: "D3.js, DOM/SVG, interaction patterns, state-driven rendering."
-      },
-      {
-        title: "Python",
-        detail: "Data processing, simulation tooling, small backend scripts."
-      },
-      {
-        title: "HTML / CSS",
-        detail: "Component layout, typographic rhythm, responsive constraints."
-      }
-    ],
-    languages: [
-      { title: "English", detail: "Native" },
-      { title: "Swedish", detail: "Native" },
-      { title: "German", detail: "B Level Proficiency" },
-      { title: "Japanese", detail: "A Level Proficiency" },
-      { title: "Dutch, Italian", detail: "Basic Understanding"}
-    ]
-  },
+// ---- Load content from /data/content.json ----
+init();
 
-  experience: {
-    education: [
-      {
-        title: "KTH Royal Institute of Technology",
-        meta: "M.Sc., Interactive Media Technology",
-        detail: "2020-2025"
-      },
-      {
-        title: "Technische Universiteit Delft",
-        meta: "Exchange, Computer Science",
-        detail: "Spring 2024"
-      }
-    ]
+async function init() {
+  try {
+    const res = await fetch("./data/content.json", { cache: "no-store" });
+    if (!res.ok) throw new Error(`Failed to load content.json (${res.status})`);
+    DATA = await res.json();
+
+    wireTabs();
+    render();
+  } catch (err) {
+    showError(err);
   }
-},
+}
 
-  work: [
-    { title: "Power Grid System — Map vs List Interfaces", date: "2025", desc: "Designed and evaluated two opposing visualization layouts for decision-making under constraints." },
-    { title: "Scenario Design + Scoring System", date: "2025", desc: "Built scenarios, goals, and feedback to support consistent tasks and comparable results." },
-    { title: "D3 Topology Rendering (IEEE-style)", date: "2025", desc: "Recreated network topology in SVG with state-driven overlays for system stress visibility." },
-    { title: "User Study Flow + Result Capture", date: "2025", desc: "Structured onboarding, task sequencing, and exported metrics to support analysis." }
-  ]
-};
+function wireTabs() {
+  tabs.forEach((btn) => btn.addEventListener("click", () => setActiveTab(btn.dataset.tab)));
 
-// Self-diagnose whether CSS loaded
-(function cssDiagnostics() {
-  const cssOk = getComputedStyle(document.documentElement).getPropertyValue("--css-ok").trim();
-  if (cssOk !== "1") {
-    const banner = document.createElement("div");
-    banner.textContent = "CSS NOT LOADED — check file location/path";
-    banner.style.position = "fixed";
-    banner.style.top = "12px";
-    banner.style.left = "12px";
-    banner.style.padding = "10px 12px";
-    banner.style.background = "black";
-    banner.style.color = "white";
-    banner.style.fontSize = "14px";
-    banner.style.zIndex = "9999";
-    document.body.appendChild(banner);
-  }
-})();
-
-// Tabs
-tabs.forEach((btn) => btn.addEventListener("click", () => setActiveTab(btn.dataset.tab)));
+  // Optional: keyboard navigation
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "1") setActiveTab("intro");
+    if (e.key === "2") setActiveTab("about");
+    if (e.key === "3") setActiveTab("work");
+  });
+}
 
 function setActiveTab(tab) {
   activeTab = tab;
@@ -102,20 +38,25 @@ function setActiveTab(tab) {
 }
 
 function render() {
+  if (!DATA) return;
+
   stage.innerHTML = "";
-  if (activeTab === "intro") renderIntro();
-  if (activeTab === "about") renderAbout();
-  if (activeTab === "work") renderWork();
+
+  if (activeTab === "intro") renderIntro(DATA.intro);
+  if (activeTab === "about") renderAbout(DATA.about);
+  if (activeTab === "work") renderWork(DATA.work);
 }
 
-function renderIntro() {
+// -------- Views --------
+
+function renderIntro(intro) {
   const text = document.createElement("div");
   text.className = "big-text";
-  text.textContent = DATA.intro.text;
+  text.textContent = intro?.text ?? "";
   stage.appendChild(text);
 }
 
-function renderAbout() {
+function renderAbout(about) {
   const cols = document.createElement("div");
   cols.className = "columns";
 
@@ -124,28 +65,31 @@ function renderAbout() {
   left.className = "column";
   left.appendChild(sectionTitle("Skills"));
 
-  left.appendChild(
-    sectionBlock("Areas", DATA.about.skills.areas.map(toItem))
-  );
-  left.appendChild(
-    sectionBlock("Programming", DATA.about.skills.programming.map(toItem))
-  );
+  left.appendChild(sectionBlock("Areas", (about?.skills?.areas ?? []).map(toItem)));
+  left.appendChild(sectionBlock("Programming", (about?.skills?.programming ?? []).map(toItem)));
 
-  // RIGHT: Experience
+  // RIGHT: Experience + Languages
   const right = document.createElement("div");
   right.className = "column";
   right.appendChild(sectionTitle("Experience"));
 
-  right.appendChild(
-    sectionBlock("Education", DATA.about.experience.education.map(toItemMeta))
-  );
-  right.appendChild(
-    sectionBlock("Languages", DATA.about.skills.languages.map(toItem))
-  );
+  right.appendChild(sectionBlock("Education", (about?.experience?.education ?? []).map(toItemMeta)));
+  right.appendChild(sectionBlock("Languages", (about?.skills?.languages ?? []).map(toItem)));
 
   cols.append(left, right);
   stage.appendChild(cols);
 }
+
+function renderWork(work) {
+  const list = document.createElement("div");
+  list.className = "work-list";
+
+  (work ?? []).forEach((item) => list.appendChild(createWorkItem(item)));
+
+  stage.appendChild(list);
+}
+
+// -------- Components / helpers --------
 
 function sectionTitle(text) {
   const h = document.createElement("h3");
@@ -173,8 +117,8 @@ function toItem(x) {
   const el = document.createElement("div");
   el.className = "about-item";
   el.innerHTML = `
-    <div class="about-item-title">${escapeHtml(x.title)}</div>
-    <div class="about-item-detail">${escapeHtml(x.detail)}</div>
+    <div class="about-item-title">${escapeHtml(x?.title ?? "")}</div>
+    <div class="about-item-detail">${escapeHtml(x?.detail ?? "")}</div>
   `;
   return el;
 }
@@ -183,20 +127,11 @@ function toItemMeta(x) {
   const el = document.createElement("div");
   el.className = "about-item";
   el.innerHTML = `
-    <div class="about-item-title">${escapeHtml(x.title)}</div>
-    <div class="about-item-meta">${escapeHtml(x.meta)}</div>
-    <div class="about-item-detail">${escapeHtml(x.detail)}</div>
+    <div class="about-item-title">${escapeHtml(x?.title ?? "")}</div>
+    <div class="about-item-meta">${escapeHtml(x?.meta ?? "")}</div>
+    <div class="about-item-detail">${escapeHtml(x?.detail ?? "")}</div>
   `;
   return el;
-}
-
-
-function renderWork() {
-  const list = document.createElement("div");
-  list.className = "work-list";
-
-  DATA.work.forEach((item) => list.appendChild(createWorkItem(item)));
-  stage.appendChild(list);
 }
 
 function createWorkItem(item) {
@@ -205,23 +140,18 @@ function createWorkItem(item) {
 
   const title = document.createElement("div");
   title.className = "work-title";
-  title.textContent = item.title;
+  title.textContent = item?.title ?? "";
 
   const date = document.createElement("div");
   date.className = "work-date";
-  date.textContent = item.date;
+  date.textContent = item?.date ?? "";
 
   const desc = document.createElement("div");
   desc.className = "work-desc";
-  desc.textContent = item.desc;
+  desc.textContent = item?.desc ?? "";
 
   el.append(title, date, desc);
   return el;
-}
-
-function renderList(items) {
-  const li = items.map((x) => `<li>${escapeHtml(x)}</li>`).join("");
-  return `<ul>${li}</ul>`;
 }
 
 function escapeHtml(str) {
@@ -233,4 +163,13 @@ function escapeHtml(str) {
     .replaceAll("'", "&#039;");
 }
 
-render();
+function showError(err) {
+  stage.innerHTML = "";
+  const msg = document.createElement("div");
+  msg.className = "big-text";
+  msg.textContent =
+    "Could not load /data/content.json.\n" +
+    "Check that the file exists and Live Server is running from the /portfolio folder.\n\n" +
+    String(err);
+  stage.appendChild(msg);
+}
