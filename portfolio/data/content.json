@@ -1,0 +1,51 @@
+{
+  "intro": {
+    "text": "I design calm interfaces for complex systems.\nMy focus is interaction design + data visualization.\nCurrently building and evaluating an interactive power-grid prototype."
+  },
+  "about": {
+    "skills": {
+      "areas": [
+        { "title": "Interaction Design", "detail": "Information hierarchy, layout systems, affordances, usability." },
+        { "title": "Data Visualization", "detail": "Visual encodings for state, constraints, and trade-offs." },
+        { "title": "User Studies", "detail": "Study design, think-aloud sessions, surveys, mixed-method analysis." }
+      ],
+      "programming": [
+        { "title": "JavaScript", "detail": "D3.js, DOM/SVG, interaction patterns, state-driven rendering." },
+        { "title": "Python", "detail": "Data processing, simulation tooling, small backend scripts." },
+        { "title": "HTML / CSS", "detail": "Typographic rhythm, layout systems, responsive constraints." }
+      ],
+      "languages": [
+        { "title": "English", "detail": "Fluent" },
+        { "title": "Swedish", "detail": "Fluent / professional" },
+        { "title": "Japanese", "detail": "Learning (ongoing)" },
+        { "title": "German", "detail": "Learning (ongoing)" }
+      ]
+    },
+    "experience": {
+      "education": [
+        {
+          "title": "KTH Royal Institute of Technology",
+          "meta": "MSc (Interaction Design) — Stockholm",
+          "detail": "2020-2025"
+        }
+      ]
+    }
+  },
+  "work": [
+    {
+      "title": "Power Grid System — Map vs List Interfaces",
+      "date": "2025",
+      "desc": "Designed and evaluated two opposing visualization layouts for decision-making under constraints."
+    },
+    {
+      "title": "Scenario Design + Scoring System",
+      "date": "2025",
+      "desc": "Built scenarios, goals, and feedback to support consistent tasks and comparable results."
+    },
+    {
+      "title": "D3 Topology Rendering (IEEE-style)",
+      "date": "2025",
+      "desc": "Recreated network topology in SVG with state-driven overlays for system stress visibility."
+    }
+  ]
+}
