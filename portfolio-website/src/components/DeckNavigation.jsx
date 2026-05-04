@@ -7,13 +7,27 @@ export default function DeckNavigation({
     <header className="deck-header">
       <nav className="deck-navigation">
         {slides.map((slide, index) => (
-          <button
+          <a
             key={slide.title}
-            onClick={() => onSlideChange(index)}
+            href={slide.path}
+            onClick={(event) => {
+              if (
+                event.button !== 0 ||
+                event.metaKey ||
+                event.ctrlKey ||
+                event.shiftKey ||
+                event.altKey
+              ) {
+                return;
+              }
+
+              event.preventDefault();
+              onSlideChange(index);
+            }}
             aria-current={currentSlide === index ? "page" : undefined}
           >
             {slide.title}
-          </button>
+          </a>
         ))}
       </nav>
     </header>

@@ -1,7 +1,12 @@
 function ProjectsItem({ project, isExpanded, onToggle }) {
   return (
     <article className={`project-item ${isExpanded ? "project-item--expanded" : ""}`}>
-      <button className="project-item__header" onClick={onToggle}>
+      <button
+        className="project-item__header"
+        type="button"
+        aria-expanded={isExpanded}
+        onClick={onToggle}
+      >
         <div>
           <h2>{project.title}</h2>
           <p>{project.summary}</p>
@@ -16,11 +21,11 @@ function ProjectsItem({ project, isExpanded, onToggle }) {
         ))}
       </div>
 
-      {isExpanded && (
-        <div className="project-item__details">
+      <div className="project-item__details" aria-hidden={!isExpanded}>
+        <div className="project-item__details-inner">
           <p>{project.details}</p>
         </div>
-      )}
+      </div>
     </article>
   );
 }
