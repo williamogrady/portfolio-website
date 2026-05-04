@@ -1,8 +1,8 @@
 function HomeSlide() {
     return (
-        <div>
-            <h1>Welcome to My Portfolio</h1>
-            <p>This is the home slide.</p>
+        <div className="centered-slide">
+            <h1>Hi, I'm William.</h1>
+            <p>Welcome to my portfolio.</p>
         </div>
     );
 }

@@ -4,8 +4,8 @@ export default function DeckNavigation({
   onSlideChange,
 }) {
   return (
-    <header>
-      <nav>
+    <header className="deck-header">
+      <nav className="deck-navigation">
         {slides.map((slide, index) => (
           <button
             key={slide.title}

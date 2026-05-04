@@ -1,6 +1,6 @@
 function AboutSlide() {
     return (
-        <div>
+        <div className="centered-slide">
             <h1>About Me</h1>
             <p>This is the about slide.</p>
         </div>

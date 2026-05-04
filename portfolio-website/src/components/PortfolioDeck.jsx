@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import DeckBackground from "./DeckBackground";
 import DeckNavigation from "./DeckNavigation";
 
 import HomeSlide from "./slides/HomeSlide";
@@ -16,16 +17,28 @@ export default function PortfolioDeck() {
   ];
 
   return (
-    <div>
-      <DeckNavigation
-        slides={slides}
-        currentSlide={currentSlide}
-        onSlideChange={setCurrentSlide}
-      />
+    <div className="portfolio-deck">
+      <DeckBackground />
 
-      <main>
-        {slides[currentSlide].component}
-      </main>
+      <div className="deck-shell">
+        <DeckNavigation
+          slides={slides}
+          currentSlide={currentSlide}
+          onSlideChange={setCurrentSlide}
+        />
+
+        <main className="deck-main">
+          {slides[currentSlide].component}
+        </main>
+
+        <footer className="deck-footer">
+          <p>&copy; 2026 William O'Grady</p>
+          <address>
+            <a href="mailto:ogrady@kth.se">ogrady@kth.se</a>
+            <a href="tel:+46720315317">+46 72 031 53 17</a>
+          </address>
+        </footer>
+      </div>
     </div>
   );
 }
