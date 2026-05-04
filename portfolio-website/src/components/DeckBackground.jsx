@@ -190,22 +190,24 @@ export default function DeckBackground() {
     <div className="deck-background">
       <div className="deck-background__sky" aria-hidden="true" />
       <div className="deck-background__cloud-layer" aria-hidden="true" />
-      <div className="deck-background-controls">
-        <label htmlFor="sky-time">Sky time</label>
-        <input
-          id="sky-time"
-          type="range"
-          min="0"
-          max="23.75"
-          step="0.25"
-          value={testHour ?? displayTime.getHours() + displayTime.getMinutes() / 60}
-          onChange={event => setTestHour(Number(event.target.value))}
-        />
-        <output htmlFor="sky-time">{testLabel}</output>
-        <button type="button" onClick={() => setTestHour(null)}>
-          Live
-        </button>
-      </div>
+      {/*
+    <div className="deck-background-controls">
+      <label htmlFor="sky-time">Sky time</label>
+      <input
+        id="sky-time"
+        type="range"
+        min="0"
+        max="23.75"
+        step="0.25"
+        value={testHour ?? displayTime.getHours() + displayTime.getMinutes() / 60}
+        onChange={event => setTestHour(Number(event.target.value))}
+      />
+      <output htmlFor="sky-time">{testLabel}</output>
+      <button type="button" onClick={() => setTestHour(null)}>
+        Live
+      </button>
+    </div>
+    */}
     </div>
   );
 }
