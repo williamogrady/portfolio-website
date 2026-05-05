@@ -9,11 +9,7 @@ export default function ProjectsToolbar({ selectedTags, onTagChange }) {
         return (
           <button
             key={tag}
-            className={
-              isSelected
-                ? "tag-button tag-button--selected"
-                : "tag-button"
-            }
+            className={isSelected ? "tag-button tag-button--selected" : "tag-button"}
             onClick={() => onTagChange(tag)}
             aria-pressed={isSelected}
           >

@@ -18,8 +18,8 @@
   --shadow:
     rgba(30, 32, 30, 0.12) 0 18px 42px -24px, rgba(30, 32, 30, 0.08) 0 8px 18px -14px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: "IBM Plex Sans", system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: "IBM Plex Sans", system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);

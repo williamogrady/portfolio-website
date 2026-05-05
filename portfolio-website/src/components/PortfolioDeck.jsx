@@ -30,6 +30,7 @@ export default function PortfolioDeck() {
   const [currentSlide, setCurrentSlide] = useState(() =>
     getSlideIndexFromPath(window.location.pathname)
   );
+  const [previewSlide, setPreviewSlide] = useState(null);
 
   useEffect(() => {
     function handlePopState() {
@@ -55,8 +56,12 @@ export default function PortfolioDeck() {
     }
 
     setCurrentSlide(nextSlide);
+    setPreviewSlide(null);
     window.history.pushState(null, "", slides[nextSlide].path);
   }
+
+  const previousSlide = currentSlide > 0 ? currentSlide - 1 : null;
+  const nextSlide = currentSlide < slides.length - 1 ? currentSlide + 1 : null;
 
   return (
     <div className="portfolio-deck">
@@ -66,18 +71,54 @@ export default function PortfolioDeck() {
         <DeckNavigation
           slides={slides}
           currentSlide={currentSlide}
+          previewSlide={previewSlide}
           onSlideChange={handleSlideChange}
         />
 
         <main className="deck-main">
+          {previousSlide !== null && (
+            <button
+              className="deck-arrow deck-arrow--previous"
+              type="button"
+              aria-label={`Go to ${slides[previousSlide].title}`}
+              onClick={() => handleSlideChange(previousSlide)}
+              onMouseEnter={() => setPreviewSlide(previousSlide)}
+              onMouseLeave={() => setPreviewSlide(null)}
+              onFocus={() => setPreviewSlide(previousSlide)}
+              onBlur={() => setPreviewSlide(null)}
+            >
+              <span aria-hidden="true">‹</span>
+            </button>
+          )}
+
           {slides[currentSlide].component}
+
+          {nextSlide !== null && (
+            <button
+              className="deck-arrow deck-arrow--next"
+              type="button"
+              aria-label={`Go to ${slides[nextSlide].title}`}
+              onClick={() => handleSlideChange(nextSlide)}
+              onMouseEnter={() => setPreviewSlide(nextSlide)}
+              onMouseLeave={() => setPreviewSlide(null)}
+              onFocus={() => setPreviewSlide(nextSlide)}
+              onBlur={() => setPreviewSlide(null)}
+            >
+              <span aria-hidden="true">›</span>
+            </button>
+          )}
         </main>
 
         <footer className="deck-footer">
           <p>&copy; 2026 William O'Grady</p>
           <address>
-            <a href="mailto:billy.ogrady2001@gmail.com">billy.ogrady2001@gmail.com</a>
-            <a href="tel:+46720315317">+46 72 031 53 17</a>
+            <a
+              className="deck-footer__email"
+              href="mailto:billy.ogrady2001@gmail.com"
+              aria-label="Email William O'Grady"
+            >
+              <span aria-hidden="true" />
+            </a>
           </address>
         </footer>
       </div>

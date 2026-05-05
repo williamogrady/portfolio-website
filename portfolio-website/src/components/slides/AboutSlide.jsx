@@ -1,34 +1,38 @@
+import slides from "../../../data/slides";
+
 function AboutSlide() {
+  const { title, image, description, actions } = slides.about;
+
   return (
     <section className="about-slide">
       <div className="about-slide__content">
         <figure className="about-slide__frame">
-          <img src="/profile.jpg" alt="William O'Grady" />
+          <img src={image.src} alt={image.alt} />
         </figure>
 
-        <p className="about-slide__description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-          vitae libero nec arcu porttitor tincidunt. Donec sed sem at massa
-          faucibus luctus. Vivamus fermentum, justo vitae bibendum facilisis,
-          lectus risus viverra nibh, vitae gravida nibh neque in risus.
-        </p>
+        <div className="about-slide__text">
+          <h1>{title}</h1>
+
+          <div className="about-slide__description">
+            {description.map(paragraph => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="about-slide__actions" aria-label="About links">
-        <a className="about-slide__button" href="/resume.pdf">
-          Resume
-        </a>
-        <a className="about-slide__button" href="mailto:billy.ogrady2001@gmail.com">
-          Email
-        </a>
-        <a
-          className="about-slide__button"
-          href="https://www.linkedin.com/in/william-ogrady"
-          target="_blank"
-          rel="noreferrer"
-        >
-          LinkedIn
-        </a>
+        {actions.map(action => (
+          <a
+            key={action.href}
+            className="about-slide__button"
+            href={action.href}
+            target={action.external ? "_blank" : undefined}
+            rel={action.external ? "noreferrer" : undefined}
+          >
+            {action.label}
+          </a>
+        ))}
       </div>
     </section>
   );
