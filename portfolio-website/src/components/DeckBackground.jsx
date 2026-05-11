@@ -13,7 +13,7 @@ const fixedSkyHours = {
   dark: 22,
 };
 
-export default function DeckBackground({ skyMode }) {
+export default function DeckBackground({ skyMode, scrollProgress = 0 }) {
   const [now, setNow] = useState(() => new Date());
   const skyHour = skyMode === "live" ? getSkyHour(now) : fixedSkyHours[skyMode];
   const skyTheme = useMemo(
@@ -21,6 +21,10 @@ export default function DeckBackground({ skyMode }) {
     [now, skyHour, skyMode]
   );
   const celestialBody = useMemo(() => getCelestialBody(skyHour), [skyHour]);
+  const backgroundStyle = {
+    opacity: 1 - scrollProgress,
+    filter: `saturate(${100 - scrollProgress * 42}%) brightness(${1 + scrollProgress * 0.08})`,
+  };
 
   useEffect(() => {
     if (skyMode !== "live") {
@@ -41,7 +45,7 @@ export default function DeckBackground({ skyMode }) {
   }, [skyTheme]);
 
   return (
-    <div className="deck-background">
+    <div className="deck-background" style={backgroundStyle}>
       <div className="deck-background__sky" aria-hidden="true" />
       <div
         className={`sky-lab__body ${celestialBody.className}`}

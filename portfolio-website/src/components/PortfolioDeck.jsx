@@ -45,16 +45,32 @@ function getSlideIndexFromPath(pathname) {
   return slideIndex === -1 ? 0 : slideIndex;
 }
 
+function scrollToSlide(slideIndex, behavior = "smooth") {
+  document
+    .getElementById(`slide-${slides[slideIndex].key}`)
+    ?.scrollIntoView({ behavior, block: "start" });
+}
+
 export default function PortfolioDeck() {
   const [currentSlide, setCurrentSlide] = useState(() =>
     getSlideIndexFromPath(window.location.pathname)
   );
-  const [previewSlide, setPreviewSlide] = useState(null);
   const [skyMode, setSkyMode] = useState("live");
+  const [skyScrollProgress, setSkyScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const initialSlide = getSlideIndexFromPath(window.location.pathname);
+
+    window.requestAnimationFrame(() => {
+      scrollToSlide(initialSlide, "auto");
+    });
+  }, []);
 
   useEffect(() => {
     function handlePopState() {
-      setCurrentSlide(getSlideIndexFromPath(window.location.pathname));
+      const nextSlide = getSlideIndexFromPath(window.location.pathname);
+      setCurrentSlide(nextSlide);
+      scrollToSlide(nextSlide);
     }
 
     window.addEventListener("popstate", handlePopState);
@@ -62,75 +78,117 @@ export default function PortfolioDeck() {
   }, []);
 
   useEffect(() => {
-    const currentPath = normalizePath(window.location.pathname);
-    const slidePath = normalizePath(slides[currentSlide].path);
+    const observer = new IntersectionObserver(
+      entries => {
+        const visibleEntry = entries
+          .filter(entry => entry.isIntersecting)
+          .sort((entryA, entryB) => entryB.intersectionRatio - entryA.intersectionRatio)[0];
 
-    if (currentPath !== slidePath) {
-      window.history.replaceState(null, "", getRoutedPath(slides[currentSlide].path));
+        if (!visibleEntry) {
+          return;
+        }
+
+        const nextSlide = slides.findIndex(
+          slide => visibleEntry.target.id === `slide-${slide.key}`
+        );
+
+        if (nextSlide === -1) {
+          return;
+        }
+
+        setCurrentSlide(current => {
+          if (current === nextSlide) {
+            return current;
+          }
+
+          window.history.replaceState(null, "", getRoutedPath(slides[nextSlide].path));
+          return nextSlide;
+        });
+      },
+      {
+        root: null,
+        rootMargin: "-34% 0px -46% 0px",
+        threshold: [0.12, 0.35, 0.6],
+      }
+    );
+
+    slides.forEach(slide => {
+      const slideElement = document.getElementById(`slide-${slide.key}`);
+
+      if (slideElement) {
+        observer.observe(slideElement);
+      }
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    let animationFrame = 0;
+
+    function updateSkyScrollProgress() {
+      const projectsSlide = document.getElementById("slide-projects");
+
+      if (!projectsSlide) {
+        return;
+      }
+
+      const projectsTop = projectsSlide.offsetTop || window.innerHeight;
+      const fadeDistance = Math.max(projectsTop * 0.92, window.innerHeight);
+      const nextProgress = Math.min(1, Math.max(0, window.scrollY / fadeDistance));
+
+      setSkyScrollProgress(currentProgress =>
+        Math.abs(currentProgress - nextProgress) < 0.005 ? currentProgress : nextProgress
+      );
     }
-  }, [currentSlide]);
+
+    function scheduleSkyScrollProgress() {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(updateSkyScrollProgress);
+    }
+
+    updateSkyScrollProgress();
+    window.addEventListener("scroll", scheduleSkyScrollProgress, { passive: true });
+    window.addEventListener("resize", scheduleSkyScrollProgress);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener("scroll", scheduleSkyScrollProgress);
+      window.removeEventListener("resize", scheduleSkyScrollProgress);
+    };
+  }, []);
 
   function handleSlideChange(nextSlide) {
-    if (nextSlide === currentSlide) {
-      return;
-    }
-
     setCurrentSlide(nextSlide);
-    setPreviewSlide(null);
     window.history.pushState(null, "", getRoutedPath(slides[nextSlide].path));
+    scrollToSlide(nextSlide);
   }
 
-  const previousSlide = currentSlide > 0 ? currentSlide - 1 : null;
-  const nextSlide = currentSlide < slides.length - 1 ? currentSlide + 1 : null;
   const currentSlideKey = slides[currentSlide].key;
 
   return (
     <div className={`portfolio-deck portfolio-deck--${currentSlideKey}`}>
-      <DeckBackground skyMode={skyMode} />
+      <DeckBackground skyMode={skyMode} scrollProgress={skyScrollProgress} />
 
       <div className="deck-shell">
         <DeckNavigation
           slides={slides}
           currentSlide={currentSlide}
-          previewSlide={previewSlide}
           onSlideChange={handleSlideChange}
           getRoutedPath={getRoutedPath}
         />
 
         <main className="deck-main">
-          {previousSlide !== null && (
-            <button
-              className="deck-arrow deck-arrow--previous"
-              type="button"
-              aria-label={`Go to ${slides[previousSlide].title}`}
-              onClick={() => handleSlideChange(previousSlide)}
-              onMouseEnter={() => setPreviewSlide(previousSlide)}
-              onMouseLeave={() => setPreviewSlide(null)}
-              onFocus={() => setPreviewSlide(previousSlide)}
-              onBlur={() => setPreviewSlide(null)}
+          {slides.map(slide => (
+            <section
+              key={slide.key}
+              id={`slide-${slide.key}`}
+              className={`deck-slide deck-slide--${slide.key}`}
+              aria-label={slide.title}
             >
-              <span aria-hidden="true">‹</span>
-            </button>
-          )}
-
-          <div key={currentSlideKey} className="deck-slide">
-            {slides[currentSlide].component}
-          </div>
-
-          {nextSlide !== null && (
-            <button
-              className="deck-arrow deck-arrow--next"
-              type="button"
-              aria-label={`Go to ${slides[nextSlide].title}`}
-              onClick={() => handleSlideChange(nextSlide)}
-              onMouseEnter={() => setPreviewSlide(nextSlide)}
-              onMouseLeave={() => setPreviewSlide(null)}
-              onFocus={() => setPreviewSlide(nextSlide)}
-              onBlur={() => setPreviewSlide(null)}
-            >
-              <span aria-hidden="true">›</span>
-            </button>
-          )}
+              {slide.component}
+            </section>
+          ))}
         </main>
 
         <footer className="deck-footer">

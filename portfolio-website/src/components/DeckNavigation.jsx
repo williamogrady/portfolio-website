@@ -1,7 +1,6 @@
 export default function DeckNavigation({
   slides,
   currentSlide,
-  previewSlide,
   onSlideChange,
   getRoutedPath,
 }) {
@@ -27,7 +26,6 @@ export default function DeckNavigation({
               onSlideChange(index);
             }}
             aria-current={currentSlide === index ? "page" : undefined}
-            data-preview={previewSlide === index ? "true" : undefined}
           >
             {slide.title}
           </a>
