@@ -1,21 +1,36 @@
 import { useEffect, useMemo, useState } from "react";
 
 import SkyCloudField from "./sky/SkyCloudField";
-import { getCelestialBody, getSkyHour, getSkyTheme } from "../sky/skyTheme";
+import {
+  getCelestialBody,
+  getSkyHour,
+  getSkyTheme,
+  getSkyThemeForHour,
+} from "../sky/skyTheme";
 
-export default function DeckBackground() {
+const fixedSkyHours = {
+  light: 11,
+  dark: 22,
+};
+
+export default function DeckBackground({ skyMode }) {
   const [now, setNow] = useState(() => new Date());
-  const skyTheme = useMemo(() => getSkyTheme(now), [now]);
-  const celestialBody = useMemo(
-    () => getCelestialBody(getSkyHour(now)),
-    [now]
+  const skyHour = skyMode === "live" ? getSkyHour(now) : fixedSkyHours[skyMode];
+  const skyTheme = useMemo(
+    () => skyMode === "live" ? getSkyTheme(now) : getSkyThemeForHour(skyHour),
+    [now, skyHour, skyMode]
   );
+  const celestialBody = useMemo(() => getCelestialBody(skyHour), [skyHour]);
 
   useEffect(() => {
+    if (skyMode !== "live") {
+      return undefined;
+    }
+
     const timer = window.setInterval(() => setNow(new Date()), 60_000);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [skyMode]);
 
   useEffect(() => {
     const root = document.documentElement;

@@ -6,6 +6,7 @@ import projects from "../../../data/projects";
 
 export default function ProjectsSlide() {
   const [selectedTags, setSelectedTags] = useState(["all"]);
+  const [sortOrder, setSortOrder] = useState("newest");
   const [expandedProjectId, setExpandedProjectId] = useState(null);
 
   function handleTagChange(tag) {
@@ -33,7 +34,17 @@ export default function ProjectsSlide() {
   : projects.filter(p =>
       selectedTags.some(tag => p.tags.includes(tag))
     );
-  const featuredProject = filteredProjects[0] ?? null;
+  const sortedProjects = [...filteredProjects].sort((projectA, projectB) => {
+    if (sortOrder === "oldest") {
+      return projectA.year - projectB.year;
+    }
+
+    if (sortOrder === "az") {
+      return projectA.title.localeCompare(projectB.title);
+    }
+
+    return projectB.year - projectA.year;
+  });
 
   return (
     <section className="projects-slide">
@@ -45,31 +56,24 @@ export default function ProjectsSlide() {
       <ProjectsToolbar
         selectedTags={selectedTags}
         onTagChange={handleTagChange}
+        sortOrder={sortOrder}
+        onSortOrderChange={setSortOrder}
       />
 
       <div className="projects-slide__layout">
-        <aside className="projects-slide__feature" aria-label="Featured project">
-          {featuredProject ? (
-            <>
-              <span>{featuredProject.year}</span>
-              <h2>{featuredProject.title}</h2>
-              <p>{featuredProject.summary}</p>
-              <div>
-                {featuredProject.tags.slice(0, 3).map(tag => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-            </>
-          ) : (
-            <p>No projects match the current filters.</p>
-          )}
-        </aside>
-
         <ProjectsList
-          projects={filteredProjects}
+          projects={sortedProjects}
           expandedProjectId={expandedProjectId}
-          onToggleProject={setExpandedProjectId}
+          onToggleProject={projectId =>
+            setExpandedProjectId(currentId =>
+              currentId === projectId ? null : projectId
+            )
+          }
         />
+
+        {sortedProjects.length === 0 && (
+          <p className="projects-slide__empty">No projects match the current filters.</p>
+        )}
       </div>
     </section>
   );

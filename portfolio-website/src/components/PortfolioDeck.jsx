@@ -8,9 +8,15 @@ import AboutSlide from "./slides/AboutSlide";
 import ProjectsSlide from "./slides/ProjectsSlide";
 
 const slides = [
-  { title: "Home", path: "/home/", component: <HomeSlide /> },
-  { title: "About", path: "/about/", component: <AboutSlide /> },
-  { title: "Projects", path: "/projects/", component: <ProjectsSlide /> },
+  { title: "Home", path: "/home/", key: "home", component: <HomeSlide /> },
+  { title: "About", path: "/about/", key: "about", component: <AboutSlide /> },
+  { title: "Projects", path: "/projects/", key: "projects", component: <ProjectsSlide /> },
+];
+
+const skyModes = [
+  { id: "live", label: "Live" },
+  { id: "light", label: "Light" },
+  { id: "dark", label: "Dark" },
 ];
 
 const basePath = import.meta.env.BASE_URL.replace(/\/+$/, "");
@@ -44,6 +50,7 @@ export default function PortfolioDeck() {
     getSlideIndexFromPath(window.location.pathname)
   );
   const [previewSlide, setPreviewSlide] = useState(null);
+  const [skyMode, setSkyMode] = useState("live");
 
   useEffect(() => {
     function handlePopState() {
@@ -75,10 +82,11 @@ export default function PortfolioDeck() {
 
   const previousSlide = currentSlide > 0 ? currentSlide - 1 : null;
   const nextSlide = currentSlide < slides.length - 1 ? currentSlide + 1 : null;
+  const currentSlideKey = slides[currentSlide].key;
 
   return (
-    <div className="portfolio-deck">
-      <DeckBackground />
+    <div className={`portfolio-deck portfolio-deck--${currentSlideKey}`}>
+      <DeckBackground skyMode={skyMode} />
 
       <div className="deck-shell">
         <DeckNavigation
@@ -105,7 +113,9 @@ export default function PortfolioDeck() {
             </button>
           )}
 
-          {slides[currentSlide].component}
+          <div key={currentSlideKey} className="deck-slide">
+            {slides[currentSlide].component}
+          </div>
 
           {nextSlide !== null && (
             <button
@@ -125,6 +135,21 @@ export default function PortfolioDeck() {
 
         <footer className="deck-footer">
           <p>&copy; 2026 William O'Grady</p>
+          <div className="deck-footer__sky-modes" aria-label="Sky theme mode">
+            {skyModes.map(mode => (
+              <button
+                key={mode.id}
+                className={`deck-footer__sky-mode deck-footer__sky-mode--${mode.id}`}
+                type="button"
+                aria-label={`Use ${mode.label.toLowerCase()} sky mode`}
+                aria-pressed={skyMode === mode.id}
+                title={mode.label}
+                onClick={() => setSkyMode(mode.id)}
+              >
+                <span>{mode.label}</span>
+              </button>
+            ))}
+          </div>
           <address>
             <a
               className="deck-footer__email"
