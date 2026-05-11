@@ -6,7 +6,13 @@ const projects = [
     tags: ["school", "UX", "energy", "code"],
     summary: "A web-based prototype for exploring power grid decision-making.",
     details:
-      "Designed and built as part of my master’s thesis in Media Technology at KTH.",
+      "Designed and built as part of my master's thesis in Media Technology at KTH, with a focus on making complex energy-system decisions easier to inspect and discuss.",
+    links: [
+      {
+        label: "Repository",
+        href: "https://github.com/williamogrady/portfolio-website",
+      },
+    ],
   },
   {
     id: 2,

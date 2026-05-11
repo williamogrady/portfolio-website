@@ -3,6 +3,7 @@ export default function DeckNavigation({
   currentSlide,
   previewSlide,
   onSlideChange,
+  getRoutedPath,
 }) {
   return (
     <header className="deck-header">
@@ -10,7 +11,7 @@ export default function DeckNavigation({
         {slides.map((slide, index) => (
           <a
             key={slide.title}
-            href={slide.path}
+            href={getRoutedPath(slide.path)}
             onClick={(event) => {
               if (
                 event.button !== 0 ||

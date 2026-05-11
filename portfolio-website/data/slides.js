@@ -1,3 +1,5 @@
+const publicPath = path => `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+
 const slides = {
   home: {
     greetings: [
@@ -5,7 +7,7 @@ const slides = {
         id: "en",
         language: "English",
         flag: {
-          src: "/images/flags/ireland.svg",
+          src: publicPath("/images/flags/ireland.svg"),
           alt: "Ireland flag",
         },
         intro: "Hi, my name is",
@@ -16,7 +18,7 @@ const slides = {
         id: "sv",
         language: "Swedish",
         flag: {
-          src: "/images/flags/sweden.svg",
+          src: publicPath("/images/flags/sweden.svg"),
           alt: "Sweden flag",
         },
         intro: "Hej, jag heter",
@@ -27,7 +29,7 @@ const slides = {
         id: "de",
         language: "German",
         flag: {
-          src: "/images/flags/germany.svg",
+          src: publicPath("/images/flags/germany.svg"),
           alt: "Germany flag",
         },
         intro: "Hallo, ich heiße",
@@ -39,7 +41,7 @@ const slides = {
   about: {
     title: "About Me",
     image: {
-      src: "/images/about/profileimg-placeholder.png",
+      src: publicPath("/images/about/profileimg-placeholder.png"),
       alt: "William O'Grady",
     },
     description: [
@@ -50,7 +52,7 @@ const slides = {
     actions: [
       {
         label: "Resume",
-        href: "/resume.pdf",
+        href: publicPath("/resume.pdf"),
       },
       {
         label: "Email",

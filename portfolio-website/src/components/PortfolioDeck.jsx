@@ -13,8 +13,21 @@ const slides = [
   { title: "Projects", path: "/projects/", component: <ProjectsSlide /> },
 ];
 
+const basePath = import.meta.env.BASE_URL.replace(/\/+$/, "");
+
 function normalizePath(pathname) {
-  return pathname.toLowerCase().replace(/\/+$/, "") || "/home";
+  let normalizedPath = pathname.toLowerCase().replace(/\/+$/, "") || "/home";
+
+  if (basePath && normalizedPath.startsWith(basePath.toLowerCase())) {
+    normalizedPath = normalizedPath.slice(basePath.length) || "/home";
+  }
+
+  return normalizedPath;
+}
+
+function getRoutedPath(path) {
+  const normalizedBase = import.meta.env.BASE_URL.replace(/\/+$/, "");
+  return `${normalizedBase}${path}`;
 }
 
 function getSlideIndexFromPath(pathname) {
@@ -46,7 +59,7 @@ export default function PortfolioDeck() {
     const slidePath = normalizePath(slides[currentSlide].path);
 
     if (currentPath !== slidePath) {
-      window.history.replaceState(null, "", slides[currentSlide].path);
+      window.history.replaceState(null, "", getRoutedPath(slides[currentSlide].path));
     }
   }, [currentSlide]);
 
@@ -57,7 +70,7 @@ export default function PortfolioDeck() {
 
     setCurrentSlide(nextSlide);
     setPreviewSlide(null);
-    window.history.pushState(null, "", slides[nextSlide].path);
+    window.history.pushState(null, "", getRoutedPath(slides[nextSlide].path));
   }
 
   const previousSlide = currentSlide > 0 ? currentSlide - 1 : null;
@@ -73,6 +86,7 @@ export default function PortfolioDeck() {
           currentSlide={currentSlide}
           previewSlide={previewSlide}
           onSlideChange={handleSlideChange}
+          getRoutedPath={getRoutedPath}
         />
 
         <main className="deck-main">

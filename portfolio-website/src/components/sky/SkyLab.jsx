@@ -67,7 +67,7 @@ export default function SkyLab() {
           <button type="button" onClick={() => setIsLive(true)}>
             Live
           </button>
-          <a href="/home/">Portfolio</a>
+          <a href={`${import.meta.env.BASE_URL}home/`}>Portfolio</a>
         </div>
 
         <div className="sky-lab__stops" aria-label="Color stop times">
