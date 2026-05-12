@@ -60,6 +60,7 @@ export default function PortfolioDeck() {
   );
   const [skyMode, setSkyMode] = useState("live");
   const [skyScrollProgress, setSkyScrollProgress] = useState(0);
+  const [footerVisibility, setFooterVisibility] = useState(1);
 
   useEffect(() => {
     const initialSlide = getSlideIndexFromPath(window.location.pathname);
@@ -145,6 +146,18 @@ export default function PortfolioDeck() {
         Math.abs(currentProgress - nextProgress) < 0.005 ? currentProgress : nextProgress
       );
 
+      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const distanceToBottom = Math.max(0, documentHeight - window.scrollY);
+      const introVisibility = 1 - Math.min(1, window.scrollY / 120);
+      const bottomVisibility = distanceToBottom < 180 ? 1 - (distanceToBottom / 180) : 0;
+      const nextFooterVisibility = Math.max(introVisibility, bottomVisibility);
+
+      setFooterVisibility(currentVisibility =>
+        Math.abs(currentVisibility - nextFooterVisibility) < 0.01
+          ? currentVisibility
+          : nextFooterVisibility
+      );
+
       const slideTops = slides.map(slide =>
         document.getElementById(`slide-${slide.key}`)?.offsetTop ?? 0
       );
@@ -220,8 +233,14 @@ export default function PortfolioDeck() {
           ))}
         </main>
 
-        <footer className="deck-footer">
-          <p>&copy; 2026 William O'Grady</p>
+        <footer
+          className="deck-footer"
+          style={{
+            opacity: footerVisibility,
+            transform: `translateY(${(1 - footerVisibility) * 18}px)`,
+          }}
+        >
+          <p className="deck-footer__copyright">&copy; 2026 william o'grady </p>
           <div className="deck-footer__sky-modes" aria-label="Sky theme mode">
             {skyModes.map(mode => (
               <button

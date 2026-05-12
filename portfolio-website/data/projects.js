@@ -1,9 +1,25 @@
+export const projectAssetPath = path =>
+  `${import.meta.env.BASE_URL}assets/projects/${path.replace(/^\/+/, "")}`;
+
 const projects = [
   {
     id: 1,
     title: "Power Grid Interface Prototype",
     year: 2025,
     tags: ["school", "UX", "energy", "code"],
+    skills: [
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "D3.js",
+      "Figma",
+      "Full-Stack Development",
+      "Data Visualization",
+      "Prototyping",
+      "A/B Testing",
+      "Semi-Structured Interviews",
+      "Thematic Analysis",
+    ],
     color: "#9fb8b1",
     tagline: "A web-based prototype for exploring power grid decision-making.",
     details: [
@@ -23,6 +39,7 @@ const projects = [
     title: "Brand Identity Project",
     year: 2024,
     tags: ["freelance", "design"],
+    skills: ["Logo Design", "Typography", "Visual Identity", "Client Presentation", "Asset Delivery"],
     color: "#b8ad9f",
     tagline: "A small visual identity project for an external client.",
     details: [
@@ -36,6 +53,7 @@ const projects = [
     title: "Portfolio Sky System",
     year: 2026,
     tags: ["design", "code"],
+    skills: ["React", "CSS", "Interaction Design", "Visual Systems", "Responsive Design"],
     color: "#9ea9b8",
     tagline: "A time-aware visual system for the portfolio background.",
     details: [
@@ -49,6 +67,7 @@ const projects = [
     title: "Data Storytelling Sketches",
     year: 2024,
     tags: ["school", "design", "code"],
+    skills: ["Data Visualization", "Information Design", "Interaction Sketching", "Annotation", "Prototyping"],
     color: "#b6b39d",
     tagline: "Small experiments in turning datasets into readable narratives.",
     details: [
@@ -62,6 +81,7 @@ const projects = [
     title: "Cinema Companion Concept",
     year: 2023,
     tags: ["design", "UX"],
+    skills: ["UX Design", "Product Thinking", "Wireframing", "User Flows", "Interface Design"],
     color: "#a8a0b6",
     tagline: "A lightweight concept for tracking films and watchlists.",
     details: [
@@ -75,6 +95,7 @@ const projects = [
     title: "Energy Dashboard Study",
     year: 2025,
     tags: ["school", "UX", "energy"],
+    skills: ["Dashboard Design", "Scenario Comparison", "Information Architecture", "UX Research", "Energy Systems"],
     color: "#9fb0a3",
     tagline: "A dashboard study for comparing energy system states.",
     details: [
@@ -88,6 +109,7 @@ const projects = [
     title: "Interactive Presentation Kit",
     year: 2022,
     tags: ["freelance", "design"],
+    skills: ["Presentation Design", "Technical Storytelling", "Modular Layouts", "Design Systems"],
     color: "#b8a6a0",
     tagline: "A modular presentation template for technical storytelling.",
     details: [
@@ -101,6 +123,7 @@ const projects = [
     title: "Prototype Notes Archive",
     year: 2023,
     tags: ["code", "design"],
+    skills: ["Content Modeling", "Front-End Prototyping", "Filtering", "Sorting", "Layout Testing"],
     color: "#a1b4b6",
     tagline: "A small archive concept for design and prototype notes.",
     details: [

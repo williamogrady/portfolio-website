@@ -41,7 +41,7 @@ const slides = {
   about: {
     title: "About Me",
     image: {
-      src: publicPath("/images/about/profileimg-placeholder.png"),
+      src: publicPath("/assets/images/about/profile-placeholder.png"),
       alt: "William O'Grady",
     },
     description: [
@@ -52,15 +52,20 @@ const slides = {
     actions: [
       {
         label: "Resume",
-        href: publicPath("/resume.pdf"),
+        href: publicPath("/assets/documents/resume.pdf"),
+        icon: "resume",
       },
       {
         label: "Email",
         href: "mailto:billy.ogrady2001@gmail.com",
+        icon: "email",
+        iconSrc: publicPath("/assets/icons/email.png"),
       },
       {
         label: "LinkedIn",
         href: "https://www.linkedin.com/in/william-ogrady",
+        icon: "linkedin",
+        iconSrc: publicPath("/assets/icons/linkedin.png"),
         external: true,
       },
     ],

@@ -1,13 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ProjectsToolbar from "./projects/ProjectsToolbar";
 import ProjectsList from "./projects/ProjectsList";
+import ProjectOverlay from "./projects/ProjectOverlay";
 import projects from "../../../data/projects";
 
 export default function ProjectsSlide() {
   const [selectedTags, setSelectedTags] = useState(["all"]);
   const [sortOrder, setSortOrder] = useState("newest");
   const [expandedProjectId, setExpandedProjectId] = useState(null);
+  const expandedProject = projects.find(project => project.id === expandedProjectId);
+
+  useEffect(() => {
+    if (!expandedProject) {
+      return undefined;
+    }
+
+    const scrollY = window.scrollY;
+    const originalOverflow = document.body.style.overflow;
+    const originalPosition = document.body.style.position;
+    const originalTop = document.body.style.top;
+    const originalWidth = document.body.style.width;
+    const originalOverscrollBehavior = document.documentElement.style.overscrollBehavior;
+
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = "100%";
+    document.documentElement.style.overscrollBehavior = "none";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.position = originalPosition;
+      document.body.style.top = originalTop;
+      document.body.style.width = originalWidth;
+      document.documentElement.style.overscrollBehavior = originalOverscrollBehavior;
+      window.scrollTo(0, scrollY);
+    };
+  }, [expandedProject]);
+
+  useEffect(() => {
+    function handleEscape(event) {
+      if (event.key === "Escape") {
+        setExpandedProjectId(null);
+      }
+    }
+
+    if (expandedProject) {
+      window.addEventListener("keydown", handleEscape);
+    }
+
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [expandedProject]);
 
   function handleTagChange(tag) {
     setExpandedProjectId(null);
@@ -75,6 +119,13 @@ export default function ProjectsSlide() {
           <p className="projects-slide__empty">No projects match the current filters.</p>
         )}
       </div>
+
+      {expandedProject && (
+        <ProjectOverlay
+          project={expandedProject}
+          onClose={() => setExpandedProjectId(null)}
+        />
+      )}
     </section>
   );
 

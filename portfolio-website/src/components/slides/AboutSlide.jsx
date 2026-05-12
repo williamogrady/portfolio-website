@@ -1,13 +1,15 @@
 import slides from "../../../data/slides";
 
 function AboutSlide() {
-  const { title, description, actions } = slides.about;
+  const { title, image, description, actions } = slides.about;
   const [intro] = description;
 
   return (
     <section className="about-slide">
       <article className="about-slide__card">
-        <div className="about-slide__frame" aria-hidden="true" />
+        <div className="about-slide__frame">
+          <img src={image.src} alt={image.alt} />
+        </div>
 
         <div className="about-slide__text">
           <h1>{title}</h1>
@@ -30,6 +32,19 @@ function AboutSlide() {
                 target={action.external ? "_blank" : undefined}
                 rel={action.external ? "noreferrer" : undefined}
               >
+                {action.iconSrc ? (
+                  <img
+                    className="about-slide__button-icon"
+                    src={action.iconSrc}
+                    alt=""
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <span
+                    className={`about-slide__button-icon about-slide__button-icon--${action.icon}`}
+                    aria-hidden="true"
+                  />
+                )}
                 {action.label}
               </a>
             ))}
