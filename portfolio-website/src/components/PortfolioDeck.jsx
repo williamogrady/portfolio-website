@@ -19,6 +19,26 @@ const skyModes = [
   { id: "dark", label: "Dark" },
 ];
 
+const footerLinks = [
+  {
+    label: "Email William O'Grady",
+    href: "mailto:billy.ogrady2001@gmail.com",
+    icon: `${import.meta.env.BASE_URL}assets/icons/email.svg`,
+  },
+  {
+    label: "William O'Grady on LinkedIn",
+    href: "https://www.linkedin.com/in/williamjogrady",
+    icon: `${import.meta.env.BASE_URL}assets/icons/linkedin.svg`,
+    external: true,
+  },
+  {
+    label: "William O'Grady on GitHub",
+    href: "https://github.com/williamogrady",
+    icon: `${import.meta.env.BASE_URL}assets/icons/github.svg`,
+    external: true,
+  },
+];
+
 const basePath = import.meta.env.BASE_URL.replace(/\/+$/, "");
 
 function normalizePath(pathname) {
@@ -208,7 +228,7 @@ export default function PortfolioDeck() {
   const currentSlideKey = slides[currentSlide].key;
 
   return (
-    <div className={`portfolio-deck portfolio-deck--${currentSlideKey}`}>
+    <div className={`portfolio-deck portfolio-deck--${currentSlideKey} portfolio-deck--sky-${skyMode}`}>
       <DeckBackground skyMode={skyMode} scrollProgress={skyScrollProgress} />
 
       <div className="deck-shell">
@@ -257,13 +277,18 @@ export default function PortfolioDeck() {
             ))}
           </div>
           <address>
-            <a
-              className="deck-footer__email"
-              href="mailto:billy.ogrady2001@gmail.com"
-              aria-label="Email William O'Grady"
-            >
-              <span aria-hidden="true" />
-            </a>
+            {footerLinks.map(link => (
+              <a
+                key={link.href}
+                className="deck-footer__social-link"
+                href={link.href}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noreferrer" : undefined}
+                aria-label={link.label}
+              >
+                <img src={link.icon} alt="" aria-hidden="true" />
+              </a>
+            ))}
           </address>
         </footer>
       </div>

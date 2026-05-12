@@ -9,9 +9,7 @@ export default function DeckNavigation({
 }) {
   const navigationRef = useRef(null);
   const linkRefs = useRef([]);
-  const releaseIndicatorLockRef = useRef(0);
   const [indicatorStyle, setIndicatorStyle] = useState(null);
-  const [lockedIndicatorSize, setLockedIndicatorSize] = useState(null);
 
   useLayoutEffect(() => {
     function updateIndicator() {
@@ -36,16 +34,13 @@ export default function DeckNavigation({
       const secondRect = secondElement.getBoundingClientRect();
       const localProgress = slidePosition - firstIndex;
       const centerProgress = firstIndex === secondIndex ? 0 : localProgress;
-      const shapeProgress = Math.abs((localProgress || 0) - 0.5) * 2;
-      const circleSize = 18;
       const horizontalPadding = 18;
-      const firstWidth = firstRect.width + horizontalPadding;
-      const secondWidth = secondRect.width + horizontalPadding;
-      const interpolatedWidth = firstWidth + ((secondWidth - firstWidth) * centerProgress);
-      const unlockedWidth = circleSize + ((interpolatedWidth - circleSize) * shapeProgress);
-      const unlockedHeight = circleSize + ((firstRect.height + 8 - circleSize) * shapeProgress);
-      const width = lockedIndicatorSize?.width ?? unlockedWidth;
-      const height = lockedIndicatorSize?.height ?? unlockedHeight;
+      const width = Math.max(
+        ...linkElements
+          .filter(Boolean)
+          .map(linkElement => linkElement.getBoundingClientRect().width)
+      ) + horizontalPadding;
+      const height = firstRect.height + 8;
       const firstCenter = firstRect.left - navigationRect.left + (firstRect.width / 2);
       const secondCenter = secondRect.left - navigationRect.left + (secondRect.width / 2);
       const center = firstCenter + ((secondCenter - firstCenter) * centerProgress);
@@ -62,44 +57,18 @@ export default function DeckNavigation({
     window.addEventListener("resize", updateIndicator);
 
     return () => window.removeEventListener("resize", updateIndicator);
-  }, [lockedIndicatorSize, slidePosition, slides.length]);
+  }, [slidePosition, slides.length]);
 
   useEffect(() => {
     linkRefs.current = linkRefs.current.slice(0, slides.length);
   }, [slides.length]);
-
-  useEffect(() => {
-    return () => window.clearTimeout(releaseIndicatorLockRef.current);
-  }, []);
-
-  function lockIndicatorForClick() {
-    setLockedIndicatorSize(currentSize => {
-      if (currentSize) {
-        return currentSize;
-      }
-
-      const currentWidth = Number.parseFloat(indicatorStyle?.width);
-      const currentHeight = Number.parseFloat(indicatorStyle?.height);
-
-      if (!Number.isFinite(currentWidth) || !Number.isFinite(currentHeight)) {
-        return null;
-      }
-
-      return { width: currentWidth, height: currentHeight };
-    });
-
-    window.clearTimeout(releaseIndicatorLockRef.current);
-    releaseIndicatorLockRef.current = window.setTimeout(() => {
-      setLockedIndicatorSize(null);
-    }, 720);
-  }
 
   return (
     <header className="deck-header">
       <nav className="deck-navigation" ref={navigationRef}>
         {indicatorStyle && (
           <span
-            className={`deck-navigation__indicator${lockedIndicatorSize ? " deck-navigation__indicator--locked" : ""}`}
+            className="deck-navigation__indicator"
             style={indicatorStyle}
             aria-hidden="true"
           />
@@ -123,7 +92,6 @@ export default function DeckNavigation({
               }
 
               event.preventDefault();
-              lockIndicatorForClick();
               onSlideChange(index);
             }}
             aria-current={currentSlide === index ? "page" : undefined}
