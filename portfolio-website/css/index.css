@@ -487,14 +487,17 @@
 }
 
 .deck-navigation {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 18px;
+  min-height: 38px;
+  align-items: center;
+  padding: 0 8px;
   pointer-events: auto;
 }
 
-.deck-navigation a,
 .tag-button {
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -512,18 +515,61 @@
 }
 
 .deck-navigation a {
+  position: relative;
+  z-index: 1;
   min-width: 58px;
+  padding: 0.64rem 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: color-mix(in srgb, var(--text-h) 82%, transparent);
+  font-family: "Manrope", var(--sans);
   font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0;
   line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    opacity 160ms ease;
 }
 
-.deck-navigation a:hover,
+.deck-navigation__indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-h) 86%, transparent);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+  transition:
+    width 120ms ease,
+    height 120ms ease,
+    transform 120ms ease;
+}
+
+.deck-navigation__indicator--locked {
+  transition:
+    width 180ms ease,
+    height 180ms ease,
+    transform 180ms ease;
+}
+
+.deck-navigation a:hover {
+  color: var(--text-h);
+}
+
 .tag-button:hover {
   border-color: var(--accent-border);
   background: color-mix(in srgb, var(--surface-strong) 88%, var(--accent-bg));
 }
 
-.deck-navigation a[aria-current="page"],
+.deck-navigation a[data-highlighted="true"] {
+  color: var(--surface-strong);
+}
+
 .tag-button--selected {
   border-color: color-mix(in srgb, var(--text-h) 76%, transparent);
   background: color-mix(in srgb, var(--text-h) 86%, transparent);

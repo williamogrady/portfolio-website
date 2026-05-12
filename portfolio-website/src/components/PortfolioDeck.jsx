@@ -55,6 +55,9 @@ export default function PortfolioDeck() {
   const [currentSlide, setCurrentSlide] = useState(() =>
     getSlideIndexFromPath(window.location.pathname)
   );
+  const [slidePosition, setSlidePosition] = useState(() =>
+    getSlideIndexFromPath(window.location.pathname)
+  );
   const [skyMode, setSkyMode] = useState("live");
   const [skyScrollProgress, setSkyScrollProgress] = useState(0);
 
@@ -70,6 +73,7 @@ export default function PortfolioDeck() {
     function handlePopState() {
       const nextSlide = getSlideIndexFromPath(window.location.pathname);
       setCurrentSlide(nextSlide);
+      setSlidePosition(nextSlide);
       scrollToSlide(nextSlide);
     }
 
@@ -126,7 +130,7 @@ export default function PortfolioDeck() {
   useEffect(() => {
     let animationFrame = 0;
 
-    function updateSkyScrollProgress() {
+    function updateScrollProgress() {
       const projectsSlide = document.getElementById("slide-projects");
 
       if (!projectsSlide) {
@@ -140,21 +144,45 @@ export default function PortfolioDeck() {
       setSkyScrollProgress(currentProgress =>
         Math.abs(currentProgress - nextProgress) < 0.005 ? currentProgress : nextProgress
       );
+
+      const slideTops = slides.map(slide =>
+        document.getElementById(`slide-${slide.key}`)?.offsetTop ?? 0
+      );
+      const scrollPosition = window.scrollY;
+      const lastSlideIndex = slides.length - 1;
+      let nextSlidePosition = lastSlideIndex;
+
+      for (let slideIndex = 0; slideIndex < lastSlideIndex; slideIndex += 1) {
+        const currentTop = slideTops[slideIndex];
+        const nextTop = slideTops[slideIndex + 1];
+
+        if (scrollPosition <= nextTop) {
+          const slideDistance = Math.max(1, nextTop - currentTop);
+          const slideProgress = (scrollPosition - currentTop) / slideDistance;
+
+          nextSlidePosition = slideIndex + Math.min(1, Math.max(0, slideProgress));
+          break;
+        }
+      }
+
+      setSlidePosition(currentPosition =>
+        Math.abs(currentPosition - nextSlidePosition) < 0.003 ? currentPosition : nextSlidePosition
+      );
     }
 
-    function scheduleSkyScrollProgress() {
+    function scheduleScrollProgress() {
       window.cancelAnimationFrame(animationFrame);
-      animationFrame = window.requestAnimationFrame(updateSkyScrollProgress);
+      animationFrame = window.requestAnimationFrame(updateScrollProgress);
     }
 
-    updateSkyScrollProgress();
-    window.addEventListener("scroll", scheduleSkyScrollProgress, { passive: true });
-    window.addEventListener("resize", scheduleSkyScrollProgress);
+    updateScrollProgress();
+    window.addEventListener("scroll", scheduleScrollProgress, { passive: true });
+    window.addEventListener("resize", scheduleScrollProgress);
 
     return () => {
       window.cancelAnimationFrame(animationFrame);
-      window.removeEventListener("scroll", scheduleSkyScrollProgress);
-      window.removeEventListener("resize", scheduleSkyScrollProgress);
+      window.removeEventListener("scroll", scheduleScrollProgress);
+      window.removeEventListener("resize", scheduleScrollProgress);
     };
   }, []);
 
@@ -174,6 +202,7 @@ export default function PortfolioDeck() {
         <DeckNavigation
           slides={slides}
           currentSlide={currentSlide}
+          slidePosition={slidePosition}
           onSlideChange={handleSlideChange}
           getRoutedPath={getRoutedPath}
         />
