@@ -12,6 +12,30 @@ dist
 dist-ssr
 *.local
 
+# Environment and local secrets
+.env
+.env.*
+!.env.example
+
+# Private/source portfolio material
+# Keep final, intentionally published assets in public/ only.
+portfolio-assets/
+public/assets/documents/*source*
+public/assets/documents/*CV*.pdf
+public/assets/documents/*cv*.pdf
+public/assets/images/**/*source*
+public/assets/images/**/*original*
+public/assets/images/**/*raw*
+
+# Local design/export working files
+*.ai
+*.psd
+*.sketch
+*.fig
+*.xd
+*.indd
+*.afdesign
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

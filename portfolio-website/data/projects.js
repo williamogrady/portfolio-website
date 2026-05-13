@@ -48,16 +48,6 @@ const projects = [
         label: "Repository",
         href: "https://github.com/williamogrady/portfolio-website",
       },
-      {
-        label: "Demo video",
-        href: projectAssetPath("msc project/demo video 1.mp4"),
-      },
-    ],
-    documents: [
-      {
-        label: "Thesis report",
-        href: projectAssetPath("msc project/MScReport-April27 (1).pdf"),
-      },
     ],
   },
   {
@@ -83,12 +73,6 @@ const projects = [
       {
         label: "Video example",
         href: "https://www.youtube.com/watch?v=AoBLx4ctoX0&t=4s",
-      },
-    ],
-    documents: [
-      {
-        label: "Bachelor's thesis report",
-        href: projectAssetPath("bsc project/BScReport.pdf"),
       },
     ],
   },
@@ -126,12 +110,6 @@ const projects = [
       {
         label: "Figma prototype",
         href: "https://www.figma.com/proto/xCqT2aGAGepzMFrBeIRUFs/KID%2FDEL-Prototype?page-id=0%3A1&node-id=581-3422&node-type=canvas&viewport=-13902%2C-506%2C0.65&t=5HKEXEYtRniK5z8A-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=581%3A",
-      },
-    ],
-    documents: [
-      {
-        label: "Project report",
-        href: projectAssetPath("pricepal/Report.pdf"),
       },
     ],
   },
@@ -176,18 +154,6 @@ const projects = [
       projectAssetPath("signalphabet/signalpha.png"),
       projectAssetPath("signalphabet/signalpha2.JPG"),
       projectAssetPath("signalphabet/signalpha3.JPG"),
-    ],
-    links: [
-      {
-        label: "Demo video",
-        href: projectAssetPath("signalphabet/video12911972276.mp4"),
-      },
-    ],
-    documents: [
-      {
-        label: "Project report",
-        href: projectAssetPath("signalphabet/Sign Alphabet Project Report.pdf"),
-      },
     ],
   },
   {
@@ -244,18 +210,6 @@ const projects = [
       projectAssetPath("postcardly/postcardly1.png"),
       projectAssetPath("postcardly/postcardly2.png"),
       projectAssetPath("postcardly/postcardly3.png"),
-    ],
-    links: [
-      {
-        label: "Prototype video",
-        href: projectAssetPath("postcardly/RPReplay (1).MP4"),
-      },
-    ],
-    documents: [
-      {
-        label: "Workbook",
-        href: projectAssetPath("postcardly/Group 9.pdf"),
-      },
     ],
   },
 ];

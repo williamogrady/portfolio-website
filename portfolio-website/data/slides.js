@@ -46,9 +46,9 @@ const slides = {
       alt: "William O'Grady",
     },
     description: [
-      "I'm a newly graduated engineer in Media Technology from KTH in Stockholm, where I specialised in data visualization and interaction design.",
-      "My passion lies in working in teams, translating complex technical ideas into intuitive, usable solutions. Whether the solution is a website, an app, an interface, or a presentation, it's the people around me that bring purpose.",
-      "Beyond engineering, you'll find me at the cinema, reading old Russian novels in a cozy corner of a cafe, playing the piano, or writing short film scripts with my best friend Linus.",
+      "I'm a creative person at heart, and believe that great ideas come from working and learning together.",
+      "Looking for new challenges where tech meets user-centered design, at home or abroad.",
+      "Beyond engineering, you'll find me at the cinema, reading old Russian novels in a cozy corner of a cafe, or playing the piano.",
     ],
     contactMethods: [
       {

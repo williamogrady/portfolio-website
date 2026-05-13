@@ -1,2 +1,2 @@
 # portfolio-website
-kind of for ProInt
+Portfolio Website, as of May 2026.

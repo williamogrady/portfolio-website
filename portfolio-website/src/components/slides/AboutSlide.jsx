@@ -4,7 +4,6 @@ import slides from "../../../data/slides";
 
 function AboutSlide() {
   const { title, image, description, contactMethods, actions, copyIcon, checkIcon } = slides.about;
-  const [intro] = description;
   const [copiedValue, setCopiedValue] = useState(null);
   const copiedTimer = useRef(0);
 
@@ -33,10 +32,12 @@ function AboutSlide() {
 
         <div className="about-slide__text">
           <h1>{title}</h1>
-          <p className="about-slide__role">Design Engineer</p>
+          <p className="about-slide__role">William O'Grady - UX, Design & Research </p>
 
           <div className="about-slide__description">
-            <p>{intro}</p>
+            {description.map(paragraph => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
         </div>
 
