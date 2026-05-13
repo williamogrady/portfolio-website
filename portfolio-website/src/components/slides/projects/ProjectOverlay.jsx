@@ -1,5 +1,62 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+
+function getImageSource(image) {
+  return typeof image === "string" ? image : image.src;
+}
+
+function getAverageImageColor(imageSource) {
+  return new Promise(resolve => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+
+    image.onload = () => {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d", { willReadFrequently: true });
+
+      if (!context) {
+        resolve(null);
+        return;
+      }
+
+      const sampleSize = 32;
+      canvas.width = sampleSize;
+      canvas.height = sampleSize;
+      context.drawImage(image, 0, 0, sampleSize, sampleSize);
+
+      const { data } = context.getImageData(0, 0, sampleSize, sampleSize);
+      let red = 0;
+      let green = 0;
+      let blue = 0;
+      let count = 0;
+
+      for (let index = 0; index < data.length; index += 4) {
+        const alpha = data[index + 3] / 255;
+
+        if (alpha < 0.1) {
+          continue;
+        }
+
+        red += data[index] * alpha;
+        green += data[index + 1] * alpha;
+        blue += data[index + 2] * alpha;
+        count += alpha;
+      }
+
+      if (count === 0) {
+        resolve(null);
+        return;
+      }
+
+      resolve(
+        `rgb(${Math.round(red / count)} ${Math.round(green / count)} ${Math.round(blue / count)})`
+      );
+    };
+
+    image.onerror = () => resolve(null);
+    image.src = imageSource;
+  });
+}
 
 function ProjectOverlay({ project, onClose }) {
   const details = Array.isArray(project.details) ? project.details : [project.details];
@@ -7,11 +64,34 @@ function ProjectOverlay({ project, onClose }) {
   const documents = project.documents ?? [];
   const skills = project.skills ?? [];
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [averageColor, setAverageColor] = useState(project.color ?? "#9fb8b1");
   const hasMultipleImages = images.length > 1;
   const activeImage = images[activeImageIndex];
-  const activeImageStyle = typeof activeImage === "string" && activeImage.startsWith("#")
-    ? { "--project-card-color": activeImage }
-    : { "--project-image": `url(${typeof activeImage === "string" ? activeImage : activeImage.src})` };
+  const activeImageSource = getImageSource(activeImage);
+  const isColorImage = typeof activeImageSource === "string" && activeImageSource.startsWith("#");
+  const displayColor = isColorImage ? activeImageSource : averageColor;
+  const activeImageStyle = {
+    "--project-card-color": displayColor,
+    "--project-image": isColorImage ? "none" : `url(${activeImageSource})`,
+  };
+
+  useEffect(() => {
+    if (isColorImage) {
+      return undefined;
+    }
+
+    let isCancelled = false;
+
+    getAverageImageColor(activeImageSource).then(color => {
+      if (!isCancelled) {
+        setAverageColor(color ?? project.color ?? "#9fb8b1");
+      }
+    });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [activeImageSource, isColorImage, project.color]);
 
   function showPreviousImage() {
     setActiveImageIndex(currentIndex =>
@@ -47,8 +127,16 @@ function ProjectOverlay({ project, onClose }) {
           <div
             className="project-overlay__image"
             style={activeImageStyle}
-            aria-hidden="true"
-          />
+          >
+            {!isColorImage && (
+              <img
+                src={activeImageSource}
+                alt=""
+                aria-hidden="true"
+                draggable="false"
+              />
+            )}
+          </div>
 
           {hasMultipleImages && (
             <>

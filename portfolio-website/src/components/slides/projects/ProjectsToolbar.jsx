@@ -1,4 +1,4 @@
-const tags = ["all", "school", "freelance", "design", "code", "energy"];
+const tags = ["all", "school", "freelance", "design", "code", "user research", "business"];
 const sortOptions = [
   { value: "newest", label: "Newest" },
   { value: "oldest", label: "Oldest" },
