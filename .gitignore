@@ -20,6 +20,8 @@ dist-ssr
 # Private/source portfolio material
 # Keep final, intentionally published assets in public/ only.
 portfolio-assets/
+!public/assets/projects/portfolio-assets/
+!public/assets/projects/portfolio-assets/**
 public/assets/documents/*source*
 public/assets/documents/*CV*.pdf
 public/assets/documents/*cv*.pdf
