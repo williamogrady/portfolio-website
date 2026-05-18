@@ -5,6 +5,36 @@
   scroll-behavior: smooth;
 }
 
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+body.theme-dark::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+
+body.theme-light::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+body {
+  scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
+  scrollbar-width: thin;
+}
+
+body.theme-dark {
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
 .deck-background {
   position: fixed;
   inset: 0;
@@ -687,7 +717,7 @@
 .home-slide__scroll-cue {
   position: absolute;
   left: 50%;
-  bottom: clamp(96px, 15vh, 148px);
+  bottom: clamp(192px, 30vh, 296px);
   width: 18px;
   height: 18px;
   border-right: 2px solid #ffffff;
@@ -1078,6 +1108,12 @@
   width: 30px;
   height: 30px;
   color: inherit;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  line-height: normal;
+  cursor: pointer;
 }
 
 .deck-footer__social-link img {
@@ -1334,6 +1370,7 @@
   padding: 0.28rem 0.52rem;
   font-size: 0.68rem;
   text-transform: capitalize;
+  box-shadow: none;
   transition:
     background-color 160ms ease,
     border-color 160ms ease,
@@ -1352,11 +1389,13 @@
   gap: 1rem;
   width: 100%;
   overflow: visible;
+  justify-content: center;
 }
 
 .project-item {
   position: relative;
   width: 100%;
+  max-width: 340px;
   box-sizing: border-box;
   min-height: clamp(280px, 33vw, 430px);
   display: flex;
@@ -1368,6 +1407,7 @@
   cursor: pointer;
   isolation: isolate;
   box-shadow: var(--shadow);
+  color: #ffffff;
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease,
@@ -1415,7 +1455,6 @@
   gap: 0.42rem;
   padding: clamp(1rem, 2vw, 1.4rem);
   color: #ffffff;
-  text-shadow: 0 1px 12px rgba(7, 25, 35, 0.58);
 }
 
 .project-item__header {
@@ -1425,15 +1464,20 @@
 
 .project-item__header h2 {
   margin: 0;
-  color: inherit;
+  color: #ffffff;
   font-size: clamp(1.15rem, 2.1vw, 1.8rem);
   line-height: 1.02;
 }
 
 .project-item__tagline {
+  display: inline-block;
+  position: relative;
+  z-index: 3;
   max-width: 68ch;
-  color: inherit;
-  font-size: 0.82rem;
+  color: #ffffff;
+  background: none;
+  padding: 0;
+  border-radius: 0;
   line-height: 1.45;
 }
 
@@ -1443,8 +1487,6 @@
   z-index: 0;
   background-image: var(
     --project-image,
-    linear-gradient(150deg, color-mix(in srgb, var(--project-card-color) 82%, #ffffff), transparent 46%),
-    radial-gradient(circle at 70% 18%, color-mix(in srgb, #ffffff 38%, transparent), transparent 24%),
     linear-gradient(135deg, color-mix(in srgb, var(--project-card-color) 78%, #071923), var(--project-card-color))
   );
   background-color: var(--project-card-color, #9fb8b1);
@@ -1466,27 +1508,17 @@
   background:
     linear-gradient(
       180deg,
-      rgba(7, 25, 35, 0.02) 0%,
-      rgba(7, 25, 35, 0.16) 34%,
-      rgba(7, 25, 35, 0.58) 66%,
-      rgba(7, 25, 35, 0.88) 100%
+      rgba(7, 25, 35, 0.05) 0%,
+      rgba(7, 25, 35, 0.16) 32%,
+      rgba(7, 25, 35, 0.44) 62%,
+      rgba(7, 25, 35, 0.72) 100%
     );
 }
 
 .project-item__preview::after {
-  background:
-    radial-gradient(
-      circle at 18% 90%,
-      color-mix(in srgb, var(--project-card-color, #9fb8b1) 46%, transparent),
-      transparent 42%
-    ),
-    linear-gradient(
-      0deg,
-      color-mix(in srgb, var(--project-card-color, #9fb8b1) 34%, transparent),
-      transparent 52%
-    );
-  mix-blend-mode: multiply;
-  opacity: 0.82;
+  background: linear-gradient(180deg, transparent 48%, rgba(0, 0, 0, 0.56) 100%);
+  mix-blend-mode: normal;
+  opacity: 1;
 }
 
 .project-item:hover .project-item__preview,
@@ -1500,8 +1532,8 @@
   width: 44%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: color-mix(in srgb, #ffffff 24%, transparent);
-  filter: blur(24px);
+  background: transparent;
+  filter: none;
 }
 
 .project-overlay__gallery {
@@ -1845,7 +1877,18 @@
     font-size: clamp(1.12rem, 6vw, 1.45rem);
   }
 
-  .project-item__tagline,
+  .project-item__tagline {
+    display: inline-block;
+    position: relative;
+    z-index: 3;
+    max-width: none;
+    font-size: 0.78rem;
+    color: #ffffff;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+  }
+
   .project-overlay__details p {
     max-width: none;
     font-size: 0.78rem;

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import slideData from "../../data/slides";
 import DeckBackground from "./DeckBackground";
 import DeckNavigation from "./DeckNavigation";
 
@@ -81,6 +82,36 @@ export default function PortfolioDeck() {
   const [skyMode, setSkyMode] = useState("live");
   const [skyScrollProgress, setSkyScrollProgress] = useState(0);
   const [footerVisibility, setFooterVisibility] = useState(1);
+  const [footerHovered, setFooterHovered] = useState(false);
+  const [footerCopied, setFooterCopied] = useState(false);
+  const footerCopiedTimer = useRef(0);
+
+  useEffect(() => {
+    return () => window.clearTimeout(footerCopiedTimer.current);
+  }, []);
+
+  function copyFooterEmail() {
+    const email = "billy.ogrady2001@gmail.com";
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(email);
+    }
+
+    window.clearTimeout(footerCopiedTimer.current);
+    setFooterCopied(true);
+    footerCopiedTimer.current = window.setTimeout(() => {
+      setFooterCopied(false);
+    }, 1400);
+  }
+
+  useEffect(() => {
+    document.body.classList.toggle("theme-dark", skyMode === "dark");
+    document.body.classList.toggle("theme-light", skyMode === "light");
+
+    return () => {
+      document.body.classList.remove("theme-dark", "theme-light");
+    };
+  }, [skyMode]);
 
   useEffect(() => {
     const initialSlide = getSlideIndexFromPath(window.location.pathname);
@@ -277,18 +308,43 @@ export default function PortfolioDeck() {
             ))}
           </div>
           <address>
-            {footerLinks.map(link => (
-              <a
-                key={link.href}
-                className="deck-footer__social-link"
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noreferrer" : undefined}
-                aria-label={link.label}
-              >
-                <img src={link.icon} alt="" aria-hidden="true" />
-              </a>
-            ))}
+            {footerLinks.map(link => {
+              const isEmailLink = link.href.startsWith("mailto:");
+              const iconSource = isEmailLink
+                ? footerCopied
+                  ? slideData.about.checkIcon
+                  : footerHovered
+                    ? slideData.about.copyIcon
+                    : link.icon
+                : link.icon;
+
+              return isEmailLink ? (
+                <button
+                  key={link.href}
+                  type="button"
+                  className="deck-footer__social-link"
+                  onClick={copyFooterEmail}
+                  onMouseEnter={() => setFooterHovered(true)}
+                  onMouseLeave={() => setFooterHovered(false)}
+                  onFocus={() => setFooterHovered(true)}
+                  onBlur={() => setFooterHovered(false)}
+                  aria-label="Copy email address to clipboard"
+                >
+                  <img src={iconSource} alt="" aria-hidden="true" />
+                </button>
+              ) : (
+                <a
+                  key={link.href}
+                  className="deck-footer__social-link"
+                  href={link.href}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noreferrer" : undefined}
+                  aria-label={link.label}
+                >
+                  <img src={link.icon} alt="" aria-hidden="true" />
+                </a>
+              );
+            })}
           </address>
         </footer>
       </div>

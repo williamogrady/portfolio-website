@@ -66,8 +66,7 @@ const projects = [
     images: [
       projectAssetPath("bsc project/bsc-frame-rate-1.png"),
       projectAssetPath("bsc project/bsc-frame-rate-2.png"),
-      projectAssetPath("bsc project/bsc-frame-rate-3.png"),
-      projectAssetPath("bsc project/CruiseAndMcQuarrieTalkMotion.jpg"),
+      projectAssetPath("bsc project/bsc-frame-rate-3.png")
     ],
     links: [
       {
@@ -173,7 +172,6 @@ const projects = [
       projectAssetPath("designchallenge/spotify1.png"),
       projectAssetPath("designchallenge/spotify-project-DSsolgIN.png"),
       projectAssetPath("designchallenge/spotify-mapping-DbUNhqnS.png"),
-      projectAssetPath("designchallenge/spotify-storyboard-CBlUYZhn.png"),
       projectAssetPath("designchallenge/spotify-feature-1-BoTIKxlu.png"),
       projectAssetPath("designchallenge/spotify-feature-2-8ek3l07_.png"),
       projectAssetPath("designchallenge/spotify-screen-1-s0KnOBuJ.png"),

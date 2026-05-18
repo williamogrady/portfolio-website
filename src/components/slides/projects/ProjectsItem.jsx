@@ -48,8 +48,9 @@ function ProjectsItem({ project, isExpanded, onToggle }) {
 
         <header className="project-item__header">
           <h2>{project.title}</h2>
-          <p className="project-item__tagline">{project.tagline}</p>
         </header>
+
+        <p className="project-item__tagline">{project.tagline}</p>
       </div>
     </article>
   );
