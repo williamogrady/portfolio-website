@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swiss Grid Experiment</title>
+    <link rel="stylesheet" href="./css/swiss-grid.css" />
+    <style>
+      html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f4efe8;
+      }
+      body {
+        font-family: "Segoe UI", sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app" aria-live="polite"></main>
+
+    <script>
+      const paletteOptions = [
+        { bg: "#f4efe8", line: "#171714", cols: 4, rows: 6, lineWidth: 2, active: { x: 1, y: 2 } },
+        { bg: "#dfe7d5", line: "#1f2a1d", cols: 6, rows: 9, lineWidth: 2, active: { x: 4, y: 3 } },
+        { bg: "#f4d9d0", line: "#2f1b18", cols: 8, rows: 12, lineWidth: 3, active: { x: 3, y: 6 } },
+        { bg: "#dbe7f5", line: "#12263f", cols: 10, rows: 14, lineWidth: 2, active: { x: 7, y: 5 } },
+        { bg: "#efe5d8", line: "#1e1d20", cols: 5, rows: 7, lineWidth: 4, active: { x: 2, y: 3 } },
+        { bg: "#18171a", line: "#f2eadf", cols: 12, rows: 10, lineWidth: 1, active: { x: 8, y: 4 } },
+        { bg: "#f7d9c5", line: "#8a1d16", cols: 11, rows: 15, lineWidth: 3, active: { x: 5, y: 9 } },
+        { bg: "#d8e7da", line: "#163525", cols: 7, rows: 13, lineWidth: 2, active: { x: 3, y: 7 } },
+        { bg: "#e7e0ff", line: "#22135c", cols: 9, rows: 8, lineWidth: 4, active: { x: 6, y: 2 } },
+        { bg: "#f8f3ce", line: "#1a1815", cols: 13, rows: 6, lineWidth: 1, active: { x: 9, y: 2 } },
+      ];
+
+      const randomBetween = (min, max) =>
+        Math.floor(Math.random() * (max - min + 1)) + min;
+
+      function getNextVariant(previous) {
+        const candidate = paletteOptions[randomBetween(0, paletteOptions.length - 1)];
+        const next = { ...candidate };
+
+        if (previous) {
+          while (
+            next.bg === previous.bg &&
+            next.line === previous.line &&
+            next.cols === previous.cols &&
+            next.rows === previous.rows &&
+            next.lineWidth === previous.lineWidth &&
+            next.active.x === previous.active.x &&
+            next.active.y === previous.active.y
+          ) {
+            const retry = paletteOptions[randomBetween(0, paletteOptions.length - 1)];
+            next.bg = retry.bg;
+            next.line = retry.line;
+            next.cols = retry.cols;
+            next.rows = retry.rows;
+            next.lineWidth = retry.lineWidth;
+            next.active = { ...retry.active };
+          }
+        }
+
+        return next;
+      }
+
+      function buildGrid(variant) {
+        const grid = document.createElement("div");
+        grid.className = "swiss-grid";
+        grid.setAttribute("aria-hidden", "true");
+        grid.style.setProperty("--bg", variant.bg);
+        grid.style.setProperty("--line", variant.line);
+        grid.style.setProperty("--cols", variant.cols);
+        grid.style.setProperty("--rows", variant.rows);
+        grid.style.setProperty("--line-width", variant.lineWidth + "px");
+        return grid;
+      }
+
+      function buildButton(variant) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "swiss-grid-fill";
+        button.setAttribute("aria-label", "Generate another Swiss grid variation");
+        button.style.setProperty("--cell-x", variant.active.x);
+        button.style.setProperty("--cell-y", variant.active.y);
+        button.style.setProperty("--line-width", variant.lineWidth + "px");
+        button.addEventListener("click", () => {
+          state.variant = getNextVariant(state.variant);
+          render();
+        });
+        return button;
+      }
+
+      const state = {
+        variant: paletteOptions[0],
+      };
+
+      function render() {
+        const app = document.getElementById("app");
+        app.innerHTML = "";
+
+        const root = document.createElement("div");
+        root.className = "swiss-grid-experiment";
+        root.style.setProperty("--bg", state.variant.bg);
+        root.style.setProperty("--line", state.variant.line);
+        root.style.setProperty("--cols", state.variant.cols);
+        root.style.setProperty("--rows", state.variant.rows);
+        root.style.setProperty("--line-width", state.variant.lineWidth + "px");
+
+        root.appendChild(buildGrid(state.variant));
+        root.appendChild(buildButton(state.variant));
+        app.appendChild(root);
+      }
+
+      render();
+    </script>
+  </body>
+</html>
