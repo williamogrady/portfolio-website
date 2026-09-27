@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import PortfolioDeck from "./components/PortfolioDeck";
-import CarouselLab from "./lab/carousel/CarouselLab";
-import { isCarouselRoute } from "./lab/carousel/labNavigation";
+import CarouselLab from "../lab/carousel/CarouselLab";
+import { isCarouselRoute } from "../lab/carousel/labNavigation";
 
 function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
