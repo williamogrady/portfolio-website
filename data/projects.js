@@ -12,6 +12,7 @@ const projects = [
   {
     id: "power-grid-interface-usability-study",
     title: "Power Grid Interface Usability Study",
+    emphasis: 3,
     year: 2026,
     tags: ["school", "code", "design", "user research"],
     skills: [
@@ -43,6 +44,7 @@ const projects = [
       projectAssetPath("msc project/msc4.JPG"),
       projectAssetPath("msc project/earlymapview1.JPG"),
     ],
+    thumbnail: projectAssetPath("msc project/mapview-4.png"),
     links: [
       {
         label: "Repository",
@@ -53,6 +55,7 @@ const projects = [
   {
     id: "user-perception-study-video-frame-rates",
     title: "User Perception Study of Video Frame Rates",
+    emphasis: 1,
     year: 2023,
     tags: ["school", "code", "user research"],
     skills: ["HandBrake", "Prototyping", "A/B Testing", "Thematic Analysis"],
@@ -68,6 +71,7 @@ const projects = [
       projectAssetPath("bsc project/bsc-frame-rate-2.png"),
       projectAssetPath("bsc project/bsc-frame-rate-3.png")
     ],
+    thumbnail: projectAssetPath("bsc project/bsc-frame-rate-1.png"),
     links: [
       {
         label: "Video example",
@@ -78,6 +82,7 @@ const projects = [
   {
     id: "pricepal-running-rewards-app",
     title: "PricePal Running & Rewards App",
+    emphasis: 2,
     year: 2024,
     tags: ["school", "code", "design", "user research", "business"],
     skills: [
@@ -105,6 +110,7 @@ const projects = [
       projectAssetPath("pricepal/PricePal_Rewards.png"),
       projectAssetPath("pricepal/PricePal_Profile.png"),
     ],
+    thumbnail: projectAssetPath("pricepal/PricePal_Home.png"),
     links: [
       {
         label: "Figma prototype",
@@ -115,6 +121,7 @@ const projects = [
   {
     id: "publishing-company-brand-identity",
     title: "Publishing Company Brand Identity",
+    emphasis: 1,
     year: 2025,
     tags: ["freelance", "design"],
     skills: ["Adobe Illustrator", "Graphic Design", "Brand Identity", "Remote Collaboration"],
@@ -128,10 +135,12 @@ const projects = [
       projectAssetPath("historyoflit/holpress1.png"),
       projectAssetPath("historyoflit/holpress2.png"),
     ],
+    thumbnail: projectAssetPath("historyoflit/holpress1.png"),
   },
   {
     id: "sign-alphabet-learning-app",
     title: "Sign Alphabet Learning App",
+    emphasis: 3,
     year: 2023,
     tags: ["school", "code", "design", "user research"],
     skills: [
@@ -154,10 +163,12 @@ const projects = [
       projectAssetPath("signalphabet/signalpha2.JPG"),
       projectAssetPath("signalphabet/signalpha3.JPG"),
     ],
+    thumbnail: projectAssetPath("signalphabet/signalpha2.JPG"),
   },
   {
     id: "spotify-design-challenge",
     title: "Spotify Design Challenge",
+    emphasis: 2,
     year: 2024,
     tags: ["school", "design", "user research"],
     skills: ["Figma", "Rapid Design", "Mockups", "Storyboards", "Mapping", "User Flows"],
@@ -180,10 +191,12 @@ const projects = [
       projectAssetPath("designchallenge/spotify-screen-4-DW6KrOa3.png"),
       projectAssetPath("designchallenge/spotify-screen-5-sajHC4fM.png"),
     ],
+    thumbnail: projectAssetPath("designchallenge/spotify1.png"),
   },
   {
     id: "cultural-integration-social-app",
     title: "Cultural Integration Social App",
+    emphasis: 2,
     year: 2023,
     tags: ["school", "design", "user research"],
     skills: [
@@ -209,6 +222,7 @@ const projects = [
       projectAssetPath("postcardly/postcardly2.png"),
       projectAssetPath("postcardly/postcardly3.png"),
     ],
+    thumbnail: projectAssetPath("postcardly/postcardly1.png"),
   },
 ];
 

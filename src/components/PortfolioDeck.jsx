@@ -10,8 +10,8 @@ import ProjectsSlide from "./slides/ProjectsSlide";
 
 const slides = [
   { title: "Home", path: "/home/", key: "home", component: <HomeSlide /> },
-  { title: "About", path: "/about/", key: "about", component: <AboutSlide /> },
   { title: "Projects", path: "/projects/", key: "projects", component: <ProjectsSlide /> },
+  { title: "About", path: "/about/", key: "about", component: <AboutSlide /> },
 ];
 
 const skyModes = [
@@ -70,6 +70,18 @@ function scrollToSlide(slideIndex, behavior = "smooth") {
   document
     .getElementById(`slide-${slides[slideIndex].key}`)
     ?.scrollIntoView({ behavior, block: "start" });
+}
+
+function DeckSlide({ slide }) {
+  return (
+    <section
+      id={`slide-${slide.key}`}
+      className={`deck-slide deck-slide--${slide.key}`}
+      aria-label={slide.title}
+    >
+      {slide.component}
+    </section>
+  );
 }
 
 export default function PortfolioDeck() {
@@ -272,16 +284,7 @@ export default function PortfolioDeck() {
         />
 
         <main className="deck-main">
-          {slides.map(slide => (
-            <section
-              key={slide.key}
-              id={`slide-${slide.key}`}
-              className={`deck-slide deck-slide--${slide.key}`}
-              aria-label={slide.title}
-            >
-              {slide.component}
-            </section>
-          ))}
+          {slides.map(slide => <DeckSlide key={slide.key} slide={slide} />)}
         </main>
 
         <footer

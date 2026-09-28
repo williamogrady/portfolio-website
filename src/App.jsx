@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import PortfolioDeck from "./components/PortfolioDeck";
-import CarouselLab from "../lab/carousel/CarouselLab";
-import { isCarouselRoute } from "../lab/carousel/labNavigation";
+import ProjectSubpage from "./components/ProjectSubpage";
+import { getProjectIdFromPathname } from "./projectNavigation";
 
 function App() {
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -16,8 +16,10 @@ function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  if (isCarouselRoute(pathname)) {
-    return <CarouselLab pathname={pathname} />;
+  const projectId = getProjectIdFromPathname(pathname);
+
+  if (projectId) {
+    return <ProjectSubpage projectId={projectId} />;
   }
 
   return <PortfolioDeck />;

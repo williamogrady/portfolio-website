@@ -1,5 +1,5 @@
-import { bottomRowProjects, topRowProjects } from "./dummyProjects";
-import { getLabPath, navigateLab } from "./labNavigation";
+import allProjects from "../../data/projects";
+import { getProjectPath, navigateToPath } from "../projectNavigation";
 
 const LOOP_COPIES = 4;
 
@@ -8,15 +8,24 @@ function loopingGroup(projects) {
 }
 
 function ProjectCard({ project, variant, tabbable = true }) {
-  const href = getLabPath(`/carousel/${project.id}`);
+  const href = getProjectPath(project.id);
+  const image = project.thumbnail || project.images?.[0] || "";
+  const emphasis = Math.max(1, Number(project.emphasis) || 1);
+  const widthFactor = 1 + (emphasis - 1) * 0.15;
 
   function handleClick(event) {
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+    if (
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
       return;
     }
 
     event.preventDefault();
-    navigateLab(`/carousel/${project.id}`);
+    navigateToPath(`/projects/${encodeURIComponent(project.id)}`);
   }
 
   return (
@@ -24,16 +33,16 @@ function ProjectCard({ project, variant, tabbable = true }) {
       href={href}
       className={`project-card${variant === "dark" ? " project-card--dark" : ""}`}
       style={{
-        width: project.width,
-        "--project-accent": project.accent,
+        "--project-accent": project.color || "#b8ad9f",
+        "--project-width-factor": widthFactor,
       }}
-      aria-label={`Open ${project.name}`}
+      aria-label={`Open ${project.title}`}
       tabIndex={tabbable ? undefined : -1}
       onClick={handleClick}
     >
       <div className="project-card__art" aria-hidden="true">
-        <div className="project-card__shape" />
-        <span className="project-card__label">{project.name}</span>
+        {image && <img className="project-card__image" src={image} alt="" />}
+        <div className="project-card__overlay" />
       </div>
     </a>
   );
@@ -69,17 +78,19 @@ function MarqueeRow({ projects, variant, direction }) {
   );
 }
 
-export default function ProjectCarousel() {
+export default function ProjectCarousel({ projects = allProjects }) {
+  const topProjects = [...projects].slice(0, Math.ceil(projects.length / 2));
+  const bottomProjects = [...projects].slice(Math.ceil(projects.length / 2));
+
   return (
     <section className="project-showcase" aria-label="Project showcase carousel">
       <div className="project-showcase__heading">
-        <p className="project-showcase__eyebrow">Selected work</p>
         <h2 className="project-showcase__title">Projects</h2>
       </div>
 
       <div className="project-showcase__tracks">
-        <MarqueeRow projects={topRowProjects} variant="light" direction="top" />
-        <MarqueeRow projects={bottomRowProjects} variant="dark" direction="bottom" />
+        <MarqueeRow projects={topProjects} variant="light" direction="top" />
+        <MarqueeRow projects={bottomProjects} variant="dark" direction="bottom" />
       </div>
     </section>
   );
