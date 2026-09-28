@@ -23,8 +23,11 @@ export default function ProjectSubpage({ projectId, projects = allProjects }) {
     );
   }
 
-  const imageCount = project.images?.length ?? 0;
-  const currentImage = project.images?.[imageIndex] ?? project.images?.[0];
+  const images = project.thumbnail
+    ? [project.thumbnail, ...(project.images ?? []).filter(image => image !== project.thumbnail)]
+    : project.images ?? [];
+  const imageCount = images.length;
+  const currentImage = images[imageIndex];
 
   function cycleImage(step) {
     setImageIndex(current => (current + step + imageCount) % imageCount);

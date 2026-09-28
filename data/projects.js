@@ -5,7 +5,7 @@ export const projectAssetPath = path => {
     .map(segment => encodeURIComponent(segment))
     .join("/");
 
-  return `${import.meta.env.BASE_URL}assets/projects/portfolio-assets/${encodedPath}`;
+  return `${import.meta.env.BASE_URL}assets/projects/${encodedPath}`;
 };
 
 const projects = [
@@ -36,15 +36,15 @@ const projects = [
       "Through this process, I discovered how the design and layout of interfaces can affect cognitive load during decision-making and data exploration. The project also helped me refine my skills in web development, data visualization, and prototyping while entering a completely new technical domain.",
     ],
     images: [
-      projectAssetPath("msc project/mapview-4.png"),
-      projectAssetPath("msc project/ListView-2.png"),
-      projectAssetPath("msc project/msc1.JPG"),
-      projectAssetPath("msc project/msc2.JPG"),
-      projectAssetPath("msc project/msc3.JPG"),
-      projectAssetPath("msc project/msc4.JPG"),
-      projectAssetPath("msc project/earlymapview1.JPG"),
+      projectAssetPath("power-grid-interface-usability-study/mapview-4.png"),
+      projectAssetPath("power-grid-interface-usability-study/ListView-2.png"),
+      projectAssetPath("power-grid-interface-usability-study/msc1.JPG"),
+      projectAssetPath("power-grid-interface-usability-study/msc2.JPG"),
+      projectAssetPath("power-grid-interface-usability-study/msc3.JPG"),
+      projectAssetPath("power-grid-interface-usability-study/msc4.JPG"),
+      projectAssetPath("power-grid-interface-usability-study/earlymapview1.JPG"),
     ],
-    thumbnail: projectAssetPath("msc project/mapview-4.png"),
+    thumbnail: projectAssetPath("power-grid-interface-usability-study/thumbnail.png"),
     links: [
       {
         label: "Repository",
@@ -67,11 +67,11 @@ const projects = [
       "The project required us to manipulate video clips using RIFE and HandBrake. Our conclusion, while based on a small sample, was to view frame rate as a creative tool: it can shape feeling, expectation, and perceived intention.",
     ],
     images: [
-      projectAssetPath("bsc project/bsc-frame-rate-1.png"),
-      projectAssetPath("bsc project/bsc-frame-rate-2.png"),
-      projectAssetPath("bsc project/bsc-frame-rate-3.png")
+      projectAssetPath("user-perception-study-video-frame-rates/gallery-01.png"),
+      projectAssetPath("user-perception-study-video-frame-rates/gallery-02.png"),
+      projectAssetPath("user-perception-study-video-frame-rates/gallery-03.png")
     ],
-    thumbnail: projectAssetPath("bsc project/bsc-frame-rate-1.png"),
+    thumbnail: projectAssetPath("user-perception-study-video-frame-rates/thumbnail.png"),
     links: [
       {
         label: "Video example",
@@ -102,15 +102,14 @@ const projects = [
       "Our team moved from paper prototypes into a pre-study phase and two rounds of user testing, refining a high-fidelity Figma prototype through an iterative design process.",
     ],
     images: [
-      projectAssetPath("pricepal/pricepal1.png"),
-      projectAssetPath("pricepal/PricePal_Home.png"),
-      projectAssetPath("pricepal/PricePal_Challenge.png"),
-      projectAssetPath("pricepal/PricePal_Tracker.png"),
-      projectAssetPath("pricepal/PricePal_Timeline.png"),
-      projectAssetPath("pricepal/PricePal_Rewards.png"),
-      projectAssetPath("pricepal/PricePal_Profile.png"),
+      projectAssetPath("pricepal-running-rewards-app/PricePal_Home.png"),
+      projectAssetPath("pricepal-running-rewards-app/PricePal_Challenge.png"),
+      projectAssetPath("pricepal-running-rewards-app/PricePal_Tracker.png"),
+      projectAssetPath("pricepal-running-rewards-app/PricePal_Timeline.png"),
+      projectAssetPath("pricepal-running-rewards-app/PricePal_Rewards.png"),
+      projectAssetPath("pricepal-running-rewards-app/PricePal_Profile.png"),
     ],
-    thumbnail: projectAssetPath("pricepal/PricePal_Home.png"),
+    thumbnail: projectAssetPath("pricepal-running-rewards-app/thumbnail.png"),
     links: [
       {
         label: "Figma prototype",
@@ -132,10 +131,10 @@ const projects = [
       "My involvement focused on creating logos and mock-ups for the brand presentation while working remotely. It helped refine my ability to communicate concepts, interpret a desired goal and feeling, and turn those ideas into professional visuals.",
     ],
     images: [
-      projectAssetPath("historyoflit/holpress1.png"),
-      projectAssetPath("historyoflit/holpress2.png"),
+      projectAssetPath("publishing-company-brand-identity/holpress1.png"),
+      projectAssetPath("publishing-company-brand-identity/holpress2.png"),
     ],
-    thumbnail: projectAssetPath("historyoflit/holpress1.png"),
+    thumbnail: projectAssetPath("publishing-company-brand-identity/thumbnail.png"),
   },
   {
     id: "sign-alphabet-learning-app",
@@ -159,11 +158,11 @@ const projects = [
       "This was a team collaboration of four people. I was responsible for the interface and game mechanics, moving from early sketches to a Figma prototype and then to a locally running Tkinter GUI.",
     ],
     images: [
-      projectAssetPath("signalphabet/signalpha.png"),
-      projectAssetPath("signalphabet/signalpha2.JPG"),
-      projectAssetPath("signalphabet/signalpha3.JPG"),
+      projectAssetPath("sign-alphabet-learning-app/signalpha.png"),
+      projectAssetPath("sign-alphabet-learning-app/signalpha2.JPG"),
+      projectAssetPath("sign-alphabet-learning-app/signalpha3.JPG"),
     ],
-    thumbnail: projectAssetPath("signalphabet/signalpha2.JPG"),
+    thumbnail: projectAssetPath("sign-alphabet-learning-app/signalpha2.JPG"),
   },
   {
     id: "spotify-design-challenge",
@@ -180,18 +179,17 @@ const projects = [
       "Rapid prototyping in Figma translated these ideas into mid-fidelity product concepts, reinforcing the value of user research, concept development, and fast iteration in shaping AI-assisted product experiences.",
     ],
     images: [
-      projectAssetPath("designchallenge/spotify1.png"),
-      projectAssetPath("designchallenge/spotify-project-DSsolgIN.png"),
-      projectAssetPath("designchallenge/spotify-mapping-DbUNhqnS.png"),
-      projectAssetPath("designchallenge/spotify-feature-1-BoTIKxlu.png"),
-      projectAssetPath("designchallenge/spotify-feature-2-8ek3l07_.png"),
-      projectAssetPath("designchallenge/spotify-screen-1-s0KnOBuJ.png"),
-      projectAssetPath("designchallenge/spotify-screen-2-BkFAA7h3.png"),
-      projectAssetPath("designchallenge/spotify-screen-3-BeCdeFN5.png"),
-      projectAssetPath("designchallenge/spotify-screen-4-DW6KrOa3.png"),
-      projectAssetPath("designchallenge/spotify-screen-5-sajHC4fM.png"),
+      projectAssetPath("spotify-design-challenge/spotify-project-DSsolgIN.png"),
+      projectAssetPath("spotify-design-challenge/spotify-mapping-DbUNhqnS.png"),
+      projectAssetPath("spotify-design-challenge/spotify-feature-1-BoTIKxlu.png"),
+      projectAssetPath("spotify-design-challenge/spotify-feature-2-8ek3l07_.png"),
+      projectAssetPath("spotify-design-challenge/spotify-screen-1-s0KnOBuJ.png"),
+      projectAssetPath("spotify-design-challenge/spotify-screen-2-BkFAA7h3.png"),
+      projectAssetPath("spotify-design-challenge/spotify-screen-3-BeCdeFN5.png"),
+      projectAssetPath("spotify-design-challenge/spotify-screen-4-DW6KrOa3.png"),
+      projectAssetPath("spotify-design-challenge/spotify-screen-5-sajHC4fM.png"),
     ],
-    thumbnail: projectAssetPath("designchallenge/spotify1.png"),
+    thumbnail: projectAssetPath("spotify-design-challenge/thumbnail.png"),
   },
   {
     id: "cultural-integration-social-app",
@@ -218,11 +216,11 @@ const projects = [
       "The project was also a new way of approaching design from user needs directly, gathering data from 14 real-world users and creating personas to guide the resulting prototype.",
     ],
     images: [
-      projectAssetPath("postcardly/postcardly1.png"),
-      projectAssetPath("postcardly/postcardly2.png"),
-      projectAssetPath("postcardly/postcardly3.png"),
+      projectAssetPath("cultural-integration-social-app/postcardly1.png"),
+      projectAssetPath("cultural-integration-social-app/postcardly2.png"),
+      projectAssetPath("cultural-integration-social-app/postcardly3.png"),
     ],
-    thumbnail: projectAssetPath("postcardly/postcardly1.png"),
+    thumbnail: projectAssetPath("cultural-integration-social-app/thumbnail.png"),
   },
 ];
 
