@@ -7,10 +7,12 @@ import DeckNavigation from "./DeckNavigation";
 import HomeSlide from "./slides/HomeSlide";
 import AboutSlide from "./slides/AboutSlide";
 import ProjectsSlide from "./slides/ProjectsSlide";
+import SkillsSlide from "./slides/SkillsSlide";
 
 const slides = [
   { title: "Home", path: "/home/", key: "home", component: <HomeSlide /> },
   { title: "Projects", path: "/projects/", key: "projects", component: <ProjectsSlide /> },
+  { title: "Skills", path: "/skills/", key: "skills", component: <SkillsSlide /> },
   { title: "About", path: "/about/", key: "about", component: <AboutSlide /> },
 ];
 

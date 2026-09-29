@@ -29,6 +29,7 @@
 .project-showcase__heading {
   width: 100%;
   margin: 0 0 24px;
+  text-align: left;
 }
 
 .project-showcase__title {

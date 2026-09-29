@@ -621,6 +621,11 @@ body.theme-dark {
   width: 100%;
 }
 
+.deck-slide--skills {
+  min-height: auto;
+  width: 100%;
+}
+
 @keyframes deck-slide-in {
   from {
     opacity: 0;
@@ -1282,6 +1287,217 @@ body.theme-dark {
 
   .deck-footer address {
     justify-self: end;
+  }
+}
+
+.skills-slide {
+  flex: 1;
+  width: 100%;
+  min-height: calc(100svh - 146px);
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-section {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.42fr) minmax(0, 0.58fr);
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+  width: min(1280px, calc(100% - 48px));
+  margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+  box-sizing: border-box;
+  padding: clamp(0.4rem, 1.2vw, 0.9rem) 0;
+  text-align: left;
+}
+
+.skill-section:last-child {
+  border-bottom: 0;
+}
+
+.skill-section__column {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.skill-section__column--media {
+  padding: 0.35rem clamp(0.5rem, 2vw, 1.5rem) 0.35rem 0;
+}
+
+.skill-section__column--content {
+  justify-content: center;
+  padding: 0.35rem 0 0.35rem clamp(0.5rem, 2vw, 1.5rem);
+}
+
+.skill-section__header {
+  margin-bottom: clamp(0.35rem, 1vw, 0.6rem);
+}
+
+.skill-section__title {
+  margin: 0;
+  color: var(--text-h);
+  font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.skill-section__methods {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-slideshow {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  border: 2px solid var(--border);
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--surface-strong);
+}
+
+.skill-slideshow__frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 420ms ease;
+}
+
+.skill-slideshow--active .skill-slideshow__frame--visible {
+  opacity: 1;
+}
+
+.skill-slideshow:not(.skill-slideshow--active) .skill-slideshow__frame:first-child {
+  opacity: 1;
+}
+
+.skill-slideshow__frame--blue {
+  background: linear-gradient(135deg, #0016b7 0%, #2f51f3 52%, #98b5ff 100%);
+}
+
+.skill-slideshow__frame--red {
+  background: linear-gradient(135deg, #7a0d0d 0%, #c62828 52%, #ff8a80 100%);
+}
+
+.skill-slideshow__frame--green {
+  background: linear-gradient(135deg, #0d3d1f 0%, #2e7d32 52%, #a5d6a7 100%);
+}
+
+.skill-slideshow__dots {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 0.9rem;
+  z-index: 1;
+  display: flex;
+  gap: 0.4rem;
+}
+
+.skill-slideshow__dot {
+  width: 9px;
+  height: 9px;
+  background: rgba(255, 255, 255, 0.42);
+  transition: background-color 200ms ease;
+}
+
+.skill-slideshow__dot--active {
+  background: #ffffff;
+}
+
+.skill-method {
+  position: relative;
+  padding: clamp(0.28rem, 0.6vw, 0.4rem) 0;
+  cursor: pointer;
+}
+
+.skill-method__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.skill-method__title {
+  margin: 0;
+  color: var(--text-h);
+  font-size: clamp(0.86rem, 1vw, 0.96rem);
+  font-weight: 600;
+}
+
+.skill-method__icon {
+  position: relative;
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+}
+
+.skill-method__icon-bar {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--text-h);
+  transform: translateY(-50%);
+  transition: transform 220ms ease;
+}
+
+.skill-method__icon-bar--vertical {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.skill-method--expanded .skill-method__icon-bar--vertical {
+  transform: translateY(-50%) rotate(90deg) scaleX(0);
+}
+
+.skill-method__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms ease;
+}
+
+.skill-method--expanded .skill-method__panel {
+  grid-template-rows: 1fr;
+}
+
+.skill-method__description {
+  margin: 0;
+  padding-top: 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.skill-method--expanded .skill-method__description {
+  padding-top: 0.5rem;
+}
+
+@media (max-width: 1024px) {
+  .skills-slide {
+    min-height: auto;
+  }
+
+  .skill-section {
+    grid-template-columns: 1fr;
+    flex: 0 0 auto;
+    padding: clamp(1.25rem, 5vw, 2rem) 0;
+  }
+
+  .skill-section__column--media {
+    padding: 0 0 1.25rem;
+  }
+
+  .skill-slideshow {
+    min-height: 220px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .skill-section__column--content {
+    padding: 0;
   }
 }
 
