@@ -1080,9 +1080,23 @@ body.theme-dark {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   transition:
     opacity 160ms ease,
-    transform 160ms ease;
+    transform 160ms ease,
+    background-color 200ms ease,
+    color 200ms ease;
   backdrop-filter: blur(10px);
   pointer-events: auto;
+}
+
+body.theme-dark .deck-footer {
+  background: rgba(23, 22, 26, 0.86);
+  border-top-color: rgba(255, 255, 255, 0.14);
+  color: #f2f0ec;
+}
+
+body.theme-light .deck-footer {
+  background: rgba(244, 243, 239, 0.86);
+  border-top-color: rgba(18, 18, 18, 0.12);
+  color: #121212;
 }
 
 .deck-footer > p {
@@ -1137,7 +1151,8 @@ body.theme-dark {
   filter: brightness(0) saturate(100%) invert(12%) sepia(22%) saturate(1035%) hue-rotate(155deg) brightness(90%) contrast(92%);
 }
 
-.portfolio-deck--sky-dark .deck-footer__social-link img {
+.portfolio-deck--sky-dark .deck-footer__social-link img,
+body.theme-dark .deck-footer__social-link img {
   filter: brightness(0) invert(1);
 }
 
@@ -1145,7 +1160,8 @@ body.theme-dark {
   filter: brightness(0) saturate(100%) invert(35%) sepia(24%) saturate(1002%) hue-rotate(151deg) brightness(91%) contrast(87%);
 }
 
-.portfolio-deck--sky-dark .deck-footer__social-link:hover img {
+.portfolio-deck--sky-dark .deck-footer__social-link:hover img,
+body.theme-dark .deck-footer__social-link:hover img {
   filter: brightness(0) invert(1) opacity(0.74);
 }
 

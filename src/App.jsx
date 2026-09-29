@@ -41,6 +41,15 @@ function App() {
       return undefined;
     }
 
+    const isProjectToProject =
+      Boolean(getProjectIdFromPathname(renderedPathname)) &&
+      Boolean(getProjectIdFromPathname(pathname));
+
+    if (isProjectToProject) {
+      setRenderedPathname(pathname);
+      return undefined;
+    }
+
     setIsFadingOut(true);
 
     const timeout = window.setTimeout(() => {

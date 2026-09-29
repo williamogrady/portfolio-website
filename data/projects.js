@@ -45,6 +45,22 @@ const projects = [
       projectAssetPath("power-grid-interface-usability-study/earlymapview1.JPG"),
     ],
     thumbnail: projectAssetPath("power-grid-interface-usability-study/thumbnail.png"),
+    // Template: big picture, paragraph, 2 small pictures, specifics, big picture.
+    content: [
+      { type: "media", size: "big", src: projectAssetPath("power-grid-interface-usability-study/mapview-4.png") },
+      {
+        type: "text",
+        body: "With this project, my Master's Thesis, I delved into the domain of power grid systems to investigate how power grid data is visualized, interpreted, and manipulated through interfaces by grid operators, and how UX and interaction design can improve those systems.",
+      },
+      { type: "media", size: "small", src: projectAssetPath("power-grid-interface-usability-study/ListView-2.png") },
+      { type: "media", size: "small", src: projectAssetPath("power-grid-interface-usability-study/msc1.JPG") },
+      {
+        type: "specifics",
+        body: "I spent a year researching conventional methods, writing a literature review, and developing a full-stack prototype simulation of a power grid system.",
+        items: ["JavaScript", "D3.js", "Figma", "Prototyping", "A/B Testing", "Thematic Analysis"],
+      },
+      { type: "media", size: "big", src: projectAssetPath("power-grid-interface-usability-study/earlymapview1.JPG") },
+    ],
     links: [
       {
         label: "Repository",
