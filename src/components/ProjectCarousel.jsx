@@ -81,6 +81,26 @@ function MarqueeRow({ projects, variant, direction }) {
 export default function ProjectCarousel({ projects = allProjects }) {
   const topProjects = [...projects].slice(0, Math.ceil(projects.length / 2));
   const bottomProjects = [...projects].slice(Math.ceil(projects.length / 2));
+  // Temporary: until a real full-list page exists, send visitors to the newest project.
+  const mostRecentProject = projects.reduce(
+    (latest, project) => (!latest || (project.year || 0) > (latest.year || 0) ? project : latest),
+    null
+  );
+
+  function handleCtaClick(event) {
+    if (
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    navigateToPath(`/projects/${encodeURIComponent(mostRecentProject.id)}`);
+  }
 
   return (
     <section className="project-showcase" aria-label="Project showcase carousel">
@@ -92,6 +112,18 @@ export default function ProjectCarousel({ projects = allProjects }) {
         <MarqueeRow projects={topProjects} variant="light" direction="top" />
         <MarqueeRow projects={bottomProjects} variant="dark" direction="bottom" />
       </div>
+
+      {mostRecentProject && (
+        <div className="project-showcase__cta-row">
+          <a
+            href={getProjectPath(mostRecentProject.id)}
+            className="project-showcase__cta"
+            onClick={handleCtaClick}
+          >
+            Show full list of projects
+          </a>
+        </div>
+      )}
     </section>
   );
 }

@@ -13,10 +13,9 @@
 }
 
 .projects-carousel-slide {
-  flex: 0 0 80%;
-  width: 80%;
+  flex: 0 0 100%;
+  width: 100%;
   min-width: 0;
-  margin-inline: auto;
 }
 
 .project-showcase {
@@ -27,8 +26,8 @@
 }
 
 .project-showcase__heading {
-  width: 100%;
-  margin: 0 0 24px;
+  width: 80%;
+  margin: 0 auto 24px;
   text-align: left;
 }
 
@@ -48,6 +47,30 @@
   overflow: hidden;
   padding: 8px 0;
   width: 100%;
+}
+
+.project-showcase__cta-row {
+  width: 80%;
+  margin: 24px auto 0;
+}
+
+.project-showcase__cta {
+  display: inline-block;
+  padding: 12px 22px;
+  border: 1px solid rgba(18, 18, 18, 0.24);
+  border-radius: 999px;
+  color: #121212;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.project-showcase__cta:hover,
+.project-showcase__cta:focus-visible {
+  background: #121212;
+  color: #f5f2eb;
 }
 
 .project-marquee {

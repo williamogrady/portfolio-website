@@ -38,6 +38,9 @@ function SkillsSlide() {
 
   return (
     <div className="skills-slide">
+      <div className="skills-slide__heading">
+        <h2 className="skills-slide__title">Skills</h2>
+      </div>
       {skills.map(skill => (
         <SkillSection
           key={skill.id}

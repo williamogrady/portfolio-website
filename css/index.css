@@ -5,6 +5,15 @@
   scroll-behavior: smooth;
 }
 
+.route-fade {
+  opacity: 1;
+  transition: opacity 320ms ease-in-out;
+}
+
+.route-fade--out {
+  opacity: 0;
+}
+
 body::-webkit-scrollbar {
   width: 10px;
 }
@@ -624,17 +633,16 @@ body.theme-dark {
 .deck-slide--skills {
   min-height: auto;
   width: 100%;
+  margin-top: clamp(64px, 10vw, 140px);
 }
 
 @keyframes deck-slide-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -1296,6 +1304,21 @@ body.theme-dark {
   min-height: calc(100svh - 146px);
   display: flex;
   flex-direction: column;
+}
+
+.skills-slide__heading {
+  width: 80%;
+  margin: 0 auto 24px;
+  text-align: left;
+}
+
+.skills-slide__title {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 5.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+  font-weight: 500;
+  color: var(--text-h);
 }
 
 .skill-section {

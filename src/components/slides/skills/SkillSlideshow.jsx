@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
 const slideColors = ["blue", "red", "green"];
-const autoplayInterval = 3200;
+const defaultAutoplayInterval = 3200;
 
-function SkillSlideshow({ isActive }) {
+function SkillSlideshow({ isActive, intervalMs = defaultAutoplayInterval }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const intervalRef = useRef(0);
 
@@ -15,10 +15,10 @@ function SkillSlideshow({ isActive }) {
 
     intervalRef.current = window.setInterval(() => {
       setActiveIndex(currentIndex => (currentIndex + 1) % slideColors.length);
-    }, autoplayInterval);
+    }, intervalMs);
 
     return () => window.clearInterval(intervalRef.current);
-  }, [isActive]);
+  }, [isActive, intervalMs]);
 
   return (
     <div className={`skill-slideshow${isActive ? " skill-slideshow--active" : ""}`}>

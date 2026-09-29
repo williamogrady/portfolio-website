@@ -1,0 +1,82 @@
+.skills-lab {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 100vw;
+  height: 100svh;
+}
+
+.skills-lab__cell {
+  position: relative;
+  overflow: hidden;
+  background: #0b0b0b;
+  cursor: pointer;
+}
+
+.skills-lab__cell .skill-slideshow {
+  position: absolute;
+  inset: 0;
+  border: 0;
+}
+
+.skills-lab__cell--revealed {
+  background: #ffffff;
+}
+
+.skills-lab__cell:hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.16);
+  pointer-events: none;
+}
+
+.skills-lab__cell--revealed:hover::before {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.skills-lab__label {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 1rem;
+  z-index: 2;
+  color: #ffffff;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.skills-lab__cell--revealed .skills-lab__label {
+  display: none;
+}
+
+.skills-lab__method {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: clamp(6rem, 12vw, 9rem);
+  box-sizing: border-box;
+}
+
+.skills-lab__method-title {
+  margin: 0;
+  color: #111111;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.skills-lab__method-text {
+  margin: 0;
+  max-width: 46ch;
+  color: #333333;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  line-height: 1.5;
+}
