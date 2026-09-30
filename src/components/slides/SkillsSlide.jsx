@@ -1,59 +1,71 @@
 import { useEffect, useRef, useState } from "react";
 
 import skills from "../../../data/skills";
-import SkillSection from "./skills/SkillSection";
+import SkillsMenu from "./skills/SkillsMenu";
+import SkillsDetail from "./skills/SkillsDetail";
+
+const skillCount = skills.length;
 
 function SkillsSlide() {
-  const [activeSkillId, setActiveSkillId] = useState(skills[0]?.id ?? null);
-  const sectionRefs = useRef({});
+  const containerRef = useRef(null);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        const visibleEntry = entries
-          .filter(entry => entry.isIntersecting)
-          .sort((entryA, entryB) => entryB.intersectionRatio - entryA.intersectionRatio)[0];
+    let animationFrame = 0;
 
-        if (!visibleEntry) {
-          return;
-        }
+    function updateProgress() {
+      const container = containerRef.current;
 
-        setActiveSkillId(visibleEntry.target.dataset.skillId ?? null);
-      },
-      {
-        root: null,
-        rootMargin: "-30% 0px -30% 0px",
-        threshold: [0.2, 0.45, 0.7],
+      if (!container) {
+        return;
       }
-    );
 
-    Object.values(sectionRefs.current).forEach(sectionElement => {
-      if (sectionElement) {
-        observer.observe(sectionElement);
+      const containerRect = container.getBoundingClientRect();
+      const scrollableHeight = containerRect.height - window.innerHeight;
+
+      if (scrollableHeight <= 0) {
+        setProgress(currentProgress => (currentProgress === 0 ? currentProgress : 0));
+        return;
       }
-    });
 
-    return () => observer.disconnect();
+      const scrolled = Math.min(Math.max(-containerRect.top, 0), scrollableHeight);
+      const nextProgress = (scrolled / scrollableHeight) * (skillCount - 1);
+
+      setProgress(currentProgress =>
+        Math.abs(currentProgress - nextProgress) < 0.003 ? currentProgress : nextProgress
+      );
+    }
+
+    function scheduleUpdate() {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    updateProgress();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
   }, []);
 
+  const activeIndex = Math.min(skillCount - 1, Math.max(0, Math.round(progress)));
+
   return (
-    <div className="skills-slide">
-      <div className="skills-slide__heading">
-        <h2 className="skills-slide__title">Skills</h2>
+    <div className="skills-slide" ref={containerRef} style={{ "--skill-count": skillCount }}>
+      <div className="skills-slide__stage">
+        <div className="skills-slide__heading">
+          <h2 className="skills-slide__title">Skills</h2>
+        </div>
+
+        <div className="skills-slide__panel">
+          <SkillsMenu skills={skills} progress={progress} activeIndex={activeIndex} />
+          <SkillsDetail skills={skills} activeIndex={activeIndex} />
+        </div>
       </div>
-      {skills.map(skill => (
-        <SkillSection
-          key={skill.id}
-          skill={skill}
-          isActive={activeSkillId === skill.id}
-          sectionRef={element => {
-            sectionRefs.current[skill.id] = element;
-            if (element) {
-              element.dataset.skillId = skill.id;
-            }
-          }}
-        />
-      ))}
     </div>
   );
 }

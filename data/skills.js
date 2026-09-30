@@ -1,102 +1,60 @@
 const skills = [
   {
+    id: "inspiration",
+    label: "My Inspiration",
+    paragraph:
+      "Talking about his approach to filmmaking, Jonathan Glazer says he follows the rule of “The best machine is the one with the fewest parts”. I wholeheartedly agree, but I also know that this machine is found through a “whittling-down” from an endless well of inspiration. For my projects, I like to bring my love for art, nature, and timeless design to the forefront, because I can always tell when a solution is personally and lovingly put together.",
+    tags: [],
+  },
+  {
     id: "research",
-    title: "Research",
-    gradient: "blue",
-    methods: [
-      {
-        id: "user-interviews",
-        title: "User interviews",
-        description:
-          "I sit down with real users early and often, uncovering the goals and frustrations behind their behaviour before a single pixel gets designed.",
-      },
-      {
-        id: "competitive-analysis",
-        title: "Competitive analysis",
-        description:
-          "Mapping the landscape of existing products helps me spot gaps, borrow proven patterns, and avoid reinventing solved problems.",
-      },
-      {
-        id: "usability-testing",
-        title: "Usability testing",
-        description:
-          "Prototypes get tested with real people, not assumptions. Watching someone struggle is the fastest way to find what to fix next.",
-      },
+    label: "User-Centered Research",
+    paragraph:
+      "I am most engaged in a collaborative process, even when it's just me working for a target user, because the reward comes ultimately from the interaction of ideas between people.",
+    tags: [
+      "Case Studies",
+      "Literature Review",
+      "User Testing",
+      "Statistical Analysis",
+      "Affinity Diagrams",
+      "Stakeholder Analysis",
+      "Double Diamond Method",
     ],
   },
   {
-    id: "design",
-    title: "Design",
-    gradient: "red",
-    methods: [
-      {
-        id: "wireframing",
-        title: "Wireframing",
-        description:
-          "Low-fidelity sketches let me explore layout and flow quickly, keeping the focus on structure before visual polish enters the picture.",
-      },
-      {
-        id: "design-systems",
-        title: "Design systems",
-        description:
-          "Reusable components and consistent tokens keep interfaces coherent and make it easy to scale a product without starting from scratch.",
-      },
-      {
-        id: "visual-craft",
-        title: "Visual craft",
-        description:
-          "Typography, colour, and spacing are tuned deliberately so every screen feels considered, confident, and true to the brand.",
-      },
+    id: "multidisciplinary",
+    label: "Multidisciplinary",
+    paragraph:
+      "When you get down to following through and building a solution, it can often feel like the creative process is over. But there is also satisfaction in set structure. What I've learned is to find every opportunity to realise your solutions, because the best ideas are the product of a thousand bad ones shared openly.",
+    tags: [
+      "UX/UI Design",
+      "Iterative Prototyping",
+      "Agile Workflows",
+      "Web Development",
+      "App Development",
+      "Figma",
+      "Photoshop, Illustrator, InDesign",
+      "HTML/CSS",
+      "Data Visualization",
+      "Web Database Systems",
+      "Python",
+      "JavaScript",
+      "MySQL",
+      "RStudio",
     ],
   },
   {
-    id: "engineering",
-    title: "Engineering",
-    gradient: "green",
-    methods: [
-      {
-        id: "prototyping",
-        title: "Rapid prototyping",
-        description:
-          "I build interactive prototypes in code, not just clickable mockups, so ideas can be validated against real interaction and performance.",
-      },
-      {
-        id: "frontend-development",
-        title: "Frontend development",
-        description:
-          "Clean, componentised React code turns designs into production-ready interfaces without losing fidelity along the way.",
-      },
-      {
-        id: "accessibility",
-        title: "Accessibility",
-        description:
-          "Keyboard navigation, semantics, and contrast are treated as requirements, not afterthoughts, so products work for everyone.",
-      },
-    ],
-  },
-  {
-    id: "strategy",
-    title: "Strategy",
-    gradient: "blue",
-    methods: [
-      {
-        id: "workshops",
-        title: "Workshops & facilitation",
-        description:
-          "Bringing stakeholders into the same room to align on problems and priorities saves weeks of misdirected work later on.",
-      },
-      {
-        id: "roadmapping",
-        title: "Roadmapping",
-        description:
-          "I break ambitious goals into sequenced, testable milestones so teams always know what to build next and why.",
-      },
-      {
-        id: "storytelling",
-        title: "Storytelling",
-        description:
-          "Presenting findings and decisions as a clear narrative helps teams buy in and move forward with shared confidence.",
-      },
+    id: "presentation",
+    label: "Presentation",
+    paragraph:
+      "The best asset going forward in the tech and design industries is, quite obviously, the ability to communicate ideas quickly and effectively. In my projects, my top priority is creating a fun, engaged atmosphere for my teammates.",
+    tags: [
+      "Storyboarding",
+      "Presentations",
+      "Video Production",
+      "Adobe Premiere",
+      "Branding/Marketing",
+      "Good manners!",
     ],
   },
 ];

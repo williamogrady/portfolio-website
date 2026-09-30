@@ -36,21 +36,23 @@ function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  useEffect(() => {
-    if (pathname === renderedPathname) {
-      return undefined;
-    }
+  // Project-to-project navigation swaps instantly, without a fade transition.
+  const hasPendingNavigation = pathname !== renderedPathname;
+  const isProjectToProject =
+    hasPendingNavigation &&
+    Boolean(getProjectIdFromPathname(renderedPathname)) &&
+    Boolean(getProjectIdFromPathname(pathname));
 
-    const isProjectToProject =
-      Boolean(getProjectIdFromPathname(renderedPathname)) &&
-      Boolean(getProjectIdFromPathname(pathname));
-
-    if (isProjectToProject) {
-      setRenderedPathname(pathname);
-      return undefined;
-    }
-
+  if (isProjectToProject) {
+    setRenderedPathname(pathname);
+  } else if (hasPendingNavigation && !isFadingOut) {
     setIsFadingOut(true);
+  }
+
+  useEffect(() => {
+    if (!isFadingOut) {
+      return undefined;
+    }
 
     const timeout = window.setTimeout(() => {
       setRenderedPathname(pathname);
@@ -58,7 +60,7 @@ function App() {
     }, fadeOutDuration);
 
     return () => window.clearTimeout(timeout);
-  }, [pathname, renderedPathname]);
+  }, [isFadingOut, pathname]);
 
   return (
     <div className={`route-fade${isFadingOut ? " route-fade--out" : ""}`}>
