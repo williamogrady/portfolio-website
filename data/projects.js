@@ -11,7 +11,7 @@ export const projectAssetPath = path => {
 const projects = [
   {
     id: "power-grid-interface-usability-study",
-    title: "Power Grid Interface Usability Study",
+    title: "Power Grid Web Simulation",
     emphasis: 3,
     year: 2026,
     tags: ["school", "code", "design", "user research"],
@@ -70,7 +70,7 @@ const projects = [
   },
   {
     id: "user-perception-study-video-frame-rates",
-    title: "User Perception Study of Video Frame Rates",
+    title: "User Perception of Frame Rates",
     emphasis: 1,
     year: 2023,
     tags: ["school", "code", "user research"],
@@ -135,7 +135,7 @@ const projects = [
   },
   {
     id: "publishing-company-brand-identity",
-    title: "Publishing Company Brand Identity",
+    title: "HOL Press Brand Identity",
     emphasis: 1,
     year: 2025,
     tags: ["freelance", "design"],
@@ -209,7 +209,7 @@ const projects = [
   },
   {
     id: "cultural-integration-social-app",
-    title: "Cultural Integration Social App",
+    title: "Postcardly Social App",
     emphasis: 2,
     year: 2023,
     tags: ["school", "design", "user research"],
