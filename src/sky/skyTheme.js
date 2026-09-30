@@ -84,10 +84,12 @@ function mixColor(start, end, progress) {
   return `rgb(${channel("r")} ${channel("g")} ${channel("b")})`;
 }
 
-export function getForegroundTheme(hour) {
-  const isDaytime = hour >= 6.5 && hour < 19.5;
+export function isDaytimeHour(hour) {
+  return hour >= 6.5 && hour < 19.5;
+}
 
-  return isDaytime ? foregroundThemes.light : foregroundThemes.dark;
+export function getForegroundTheme(hour) {
+  return isDaytimeHour(hour) ? foregroundThemes.light : foregroundThemes.dark;
 }
 
 export function getSkyThemeForHour(hour) {

@@ -6,6 +6,7 @@ import {
   getSkyHour,
   getSkyTheme,
   getSkyThemeForHour,
+  isDaytimeHour,
 } from "../sky/skyTheme";
 
 const fixedSkyHours = {
@@ -43,6 +44,19 @@ export default function DeckBackground({ skyMode, scrollProgress = 0 }) {
       root.style.setProperty(property, value);
     });
   }, [skyTheme]);
+
+  // Reflects the actual visual theme (including live mode's time-of-day) so every
+  // hardcoded dark-mode override in CSS (icons, headings, etc.) stays in sync.
+  useEffect(() => {
+    const isDark = !isDaytimeHour(skyHour);
+
+    document.body.classList.toggle("theme-dark", isDark);
+    document.body.classList.toggle("theme-light", !isDark);
+
+    return () => {
+      document.body.classList.remove("theme-dark", "theme-light");
+    };
+  }, [skyHour]);
 
   return (
     <div className="deck-background" style={backgroundStyle}>

@@ -78,15 +78,6 @@ export default function PortfolioDeck() {
   const [footerVisibility, setFooterVisibility] = useState(1);
 
   useEffect(() => {
-    document.body.classList.toggle("theme-dark", skyMode === "dark");
-    document.body.classList.toggle("theme-light", skyMode === "light");
-
-    return () => {
-      document.body.classList.remove("theme-dark", "theme-light");
-    };
-  }, [skyMode]);
-
-  useEffect(() => {
     const initialSlide = getSlideIndexFromPath(window.location.pathname);
 
     window.requestAnimationFrame(() => {

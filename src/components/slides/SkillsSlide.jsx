@@ -8,12 +8,12 @@ const skillCount = skills.length;
 
 function SkillsSlide() {
   const containerRef = useRef(null);
-  const [progress, setProgress] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     let animationFrame = 0;
 
-    function updateProgress() {
+    function updateActiveIndex() {
       const container = containerRef.current;
 
       if (!container) {
@@ -24,24 +24,26 @@ function SkillsSlide() {
       const scrollableHeight = containerRect.height - window.innerHeight;
 
       if (scrollableHeight <= 0) {
-        setProgress(currentProgress => (currentProgress === 0 ? currentProgress : 0));
+        setActiveIndex(currentIndex => (currentIndex === 0 ? currentIndex : 0));
         return;
       }
 
       const scrolled = Math.min(Math.max(-containerRect.top, 0), scrollableHeight);
-      const nextProgress = (scrolled / scrollableHeight) * (skillCount - 1);
-
-      setProgress(currentProgress =>
-        Math.abs(currentProgress - nextProgress) < 0.003 ? currentProgress : nextProgress
+      const fraction = scrolled / scrollableHeight;
+      const nextIndex = Math.min(
+        skillCount - 1,
+        Math.max(0, Math.round(fraction * (skillCount - 1)))
       );
+
+      setActiveIndex(currentIndex => (currentIndex === nextIndex ? currentIndex : nextIndex));
     }
 
     function scheduleUpdate() {
       window.cancelAnimationFrame(animationFrame);
-      animationFrame = window.requestAnimationFrame(updateProgress);
+      animationFrame = window.requestAnimationFrame(updateActiveIndex);
     }
 
-    updateProgress();
+    updateActiveIndex();
     window.addEventListener("scroll", scheduleUpdate, { passive: true });
     window.addEventListener("resize", scheduleUpdate);
 
@@ -52,8 +54,6 @@ function SkillsSlide() {
     };
   }, []);
 
-  const activeIndex = Math.min(skillCount - 1, Math.max(0, Math.round(progress)));
-
   return (
     <div className="skills-slide" ref={containerRef} style={{ "--skill-count": skillCount }}>
       <div className="skills-slide__stage">
@@ -62,7 +62,7 @@ function SkillsSlide() {
         </div>
 
         <div className="skills-slide__panel">
-          <SkillsMenu skills={skills} progress={progress} activeIndex={activeIndex} />
+          <SkillsMenu skills={skills} activeIndex={activeIndex} />
           <SkillsDetail skills={skills} activeIndex={activeIndex} />
         </div>
       </div>

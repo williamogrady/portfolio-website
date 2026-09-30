@@ -1,37 +1,27 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
-function SkillsMenu({ skills, progress, activeIndex }) {
+function SkillsMenu({ skills, activeIndex }) {
   const rowRefs = useRef([]);
   const [indicatorStyle, setIndicatorStyle] = useState(null);
 
   useLayoutEffect(() => {
     function updateIndicator() {
-      const rows = rowRefs.current;
-      const firstIndex = Math.max(0, Math.min(rows.length - 1, Math.floor(progress)));
-      const secondIndex = Math.max(0, Math.min(rows.length - 1, Math.ceil(progress)));
-      const firstRow = rows[firstIndex];
-      const secondRow = rows[secondIndex] ?? firstRow;
+      const activeRow = rowRefs.current[activeIndex];
 
-      if (!firstRow || !secondRow) {
+      if (!activeRow) {
         return;
       }
 
-      const localProgress = firstIndex === secondIndex ? 0 : progress - firstIndex;
-      const firstTop = firstRow.offsetTop;
-      const secondTop = secondRow.offsetTop;
-      const firstHeight = firstRow.offsetHeight;
-      const secondHeight = secondRow.offsetHeight;
-
       setIndicatorStyle({
-        height: `${firstHeight + ((secondHeight - firstHeight) * localProgress)}px`,
-        transform: `translate3d(0, ${firstTop + ((secondTop - firstTop) * localProgress)}px, 0)`,
+        height: `${activeRow.offsetHeight}px`,
+        transform: `translate3d(0, ${activeRow.offsetTop}px, 0)`,
       });
     }
 
     updateIndicator();
     window.addEventListener("resize", updateIndicator);
     return () => window.removeEventListener("resize", updateIndicator);
-  }, [progress, skills.length]);
+  }, [activeIndex, skills.length]);
 
   return (
     <nav className="skills-menu" aria-label="Skills">
