@@ -235,8 +235,6 @@ export default function ProjectSubpage({ projectId, projects = allProjects }) {
             {project.year && <p className="project-subpage__year">{project.year}</p>}
           </div>
 
-          <ProjectContentBlocks blocks={contentBlocks} projectTitle={project.title} />
-
           {project.links?.length > 0 && (
             <nav className="project-subpage__links" aria-label={`${project.title} links`}>
               {project.links.map(link => (
@@ -246,6 +244,8 @@ export default function ProjectSubpage({ projectId, projects = allProjects }) {
               ))}
             </nav>
           )}
+
+          <ProjectContentBlocks blocks={contentBlocks} projectTitle={project.title} />
         </div>
       </section>
 

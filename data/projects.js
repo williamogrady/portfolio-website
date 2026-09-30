@@ -50,12 +50,14 @@ const projects = [
       { type: "media", size: "big", src: projectAssetPath("power-grid-interface-usability-study/mapview-4.png") },
       {
         type: "text",
+        size: "full",
         body: "With this project, my Master's Thesis, I delved into the domain of power grid systems to investigate how power grid data is visualized, interpreted, and manipulated through interfaces by grid operators, and how UX and interaction design can improve those systems.",
       },
       { type: "media", size: "small", src: projectAssetPath("power-grid-interface-usability-study/ListView-2.png") },
       { type: "media", size: "small", src: projectAssetPath("power-grid-interface-usability-study/msc1.JPG") },
       {
         type: "specifics",
+        size: "full",
         body: "I spent a year researching conventional methods, writing a literature review, and developing a full-stack prototype simulation of a power grid system.",
         items: ["JavaScript", "D3.js", "Figma", "Prototyping", "A/B Testing", "Thematic Analysis"],
       },
@@ -88,6 +90,28 @@ const projects = [
       projectAssetPath("user-perception-study-video-frame-rates/gallery-03.png")
     ],
     thumbnail: projectAssetPath("user-perception-study-video-frame-rates/thumbnail.png"),
+    // Template: big picture, 2 paragraphs, 2 small pictures, specifics.
+    content: [
+      { type: "media", size: "big", src: projectAssetPath("user-perception-study-video-frame-rates/gallery-01.png") },
+      {
+        type: "text",
+        size: "full",
+        body: "My Bachelor's Thesis responded to the ongoing debate around how video frame rate affects the viewing experience. High frame rate cinema has often been discussed as either the future of the medium, an unfamiliar distraction, or something that devalues the content itself.",
+      },
+      {
+        type: "text",
+        size: "full",
+        body: "My friend Emil and I designed an experiment where participants compared sets of the same clips without knowing frame rate was the only difference. We also tested whether the response varied across nature documentaries, theatrical films, and sports footage.",
+      },
+      { type: "media", size: "small", src: projectAssetPath("user-perception-study-video-frame-rates/gallery-02.png") },
+      { type: "media", size: "small", src: projectAssetPath("user-perception-study-video-frame-rates/gallery-03.png") },
+      {
+        type: "specifics",
+        size: "full",
+        body: "The project required us to manipulate video clips using RIFE and HandBrake. Our conclusion, while based on a small sample, was to view frame rate as a creative tool: it can shape feeling, expectation, and perceived intention.",
+        items: ["HandBrake", "Prototyping", "A/B Testing", "Thematic Analysis"],
+      },
+    ],
     links: [
       {
         label: "Video example",
@@ -126,6 +150,31 @@ const projects = [
       projectAssetPath("pricepal-running-rewards-app/PricePal_Profile.png"),
     ],
     thumbnail: projectAssetPath("pricepal-running-rewards-app/thumbnail.png"),
+    // Template: big picture, 2 paragraphs, 2 small pictures, specifics, 2 small pictures, big picture.
+    content: [
+      { type: "media", size: "big", src: projectAssetPath("pricepal-running-rewards-app/PricePal_Home.png") },
+      {
+        type: "text",
+        size: "full",
+        body: "PricePal is a mobile application prototype created for the course Cooperative IT-Design, where Media Technology and Industrial Management students collaborated on a cross-functional project.",
+      },
+      {
+        type: "text",
+        size: "full",
+        body: "We began with market research, surveys, competitor analysis, and stakeholder input to identify gaps in the fitness and rewards space. This led to a running app where users can join brand-sponsored challenges to earn discounts and rewards.",
+      },
+      { type: "media", size: "small", src: projectAssetPath("pricepal-running-rewards-app/PricePal_Challenge.png") },
+      { type: "media", size: "small", src: projectAssetPath("pricepal-running-rewards-app/PricePal_Tracker.png") },
+      {
+        type: "specifics",
+        size: "full",
+        body: "Our team moved from paper prototypes into a pre-study phase and two rounds of user testing, refining a high-fidelity Figma prototype through an iterative design process.",
+        items: ["Figma", "User-Centered Design", "Semi-Structured Interviews", "Affinity Diagramming", "React", "TypeScript", "Market Research"],
+      },
+      { type: "media", size: "small", src: projectAssetPath("pricepal-running-rewards-app/PricePal_Timeline.png") },
+      { type: "media", size: "small", src: projectAssetPath("pricepal-running-rewards-app/PricePal_Rewards.png") },
+      { type: "media", size: "big", src: projectAssetPath("pricepal-running-rewards-app/PricePal_Profile.png") },
+    ],
     links: [
       {
         label: "Figma prototype",
@@ -151,6 +200,22 @@ const projects = [
       projectAssetPath("publishing-company-brand-identity/holpress2.png"),
     ],
     thumbnail: projectAssetPath("publishing-company-brand-identity/thumbnail.png"),
+    // Template: big picture, paragraph + specifics side by side, big picture.
+    content: [
+      { type: "media", size: "big", src: projectAssetPath("publishing-company-brand-identity/holpress1.png") },
+      {
+        type: "text",
+        size: "full",
+        body: "In early 2025 I reached out to a favourite podcast of mine and ended up working on a new brand identity for a publishing company they were starting.",
+      },
+      {
+        type: "specifics",
+        size: "full",
+        body: "My involvement focused on creating logos and mock-ups for the brand presentation while working remotely. It helped refine my ability to communicate concepts, interpret a desired goal and feeling, and turn those ideas into professional visuals.",
+        items: ["Adobe Illustrator", "Graphic Design", "Brand Identity", "Remote Collaboration"],
+      },
+      { type: "media", size: "big", src: projectAssetPath("publishing-company-brand-identity/holpress2.png") },
+    ],
   },
   {
     id: "sign-alphabet-learning-app",
@@ -179,6 +244,28 @@ const projects = [
       projectAssetPath("sign-alphabet-learning-app/signalpha3.JPG"),
     ],
     thumbnail: projectAssetPath("sign-alphabet-learning-app/signalpha2.JPG"),
+    // Template: big picture, 2 paragraphs, 2 small pictures, specifics.
+    content: [
+      { type: "media", size: "big", src: projectAssetPath("sign-alphabet-learning-app/signalpha.png") },
+      {
+        type: "text",
+        size: "full",
+        body: "Sign Alphabet is a gesture recognition system designed to help users learn the American Sign Language alphabet. It uses MediaPipe Hands for image processing and a Random Forest machine learning model that achieved 99.6% accuracy in classifying ASL letters.",
+      },
+      {
+        type: "text",
+        size: "full",
+        body: "The program features real-time gesture recognition, a Tkinter-based GUI, and OpenCV camera display. A usability test with four participants used think-aloud sessions and interviews to guide refinements.",
+      },
+      { type: "media", size: "small", src: projectAssetPath("sign-alphabet-learning-app/signalpha2.JPG") },
+      { type: "media", size: "small", src: projectAssetPath("sign-alphabet-learning-app/signalpha3.JPG") },
+      {
+        type: "specifics",
+        size: "full",
+        body: "This was a team collaboration of four people. I was responsible for the interface and game mechanics, moving from early sketches to a Figma prototype and then to a locally running Tkinter GUI.",
+        items: ["Python", "Tkinter", "MediaPipe", "OpenCV", "Computer Vision", "Iterative Prototyping"],
+      },
+    ],
   },
   {
     id: "spotify-design-challenge",
@@ -206,6 +293,34 @@ const projects = [
       projectAssetPath("spotify-design-challenge/spotify-screen-5-sajHC4fM.png"),
     ],
     thumbnail: projectAssetPath("spotify-design-challenge/thumbnail.png"),
+    // Template: big picture, 2 paragraphs, 2 small pictures, specifics, 4 small pictures, big picture.
+    content: [
+      { type: "media", size: "big", src: projectAssetPath("spotify-design-challenge/spotify-project-DSsolgIN.png") },
+      {
+        type: "text",
+        size: "full",
+        body: "This two-week UX and product design challenge explored how Spotify could use AI to enhance music discovery through explicit user preferences and implicit listening behaviors.",
+      },
+      {
+        type: "text",
+        size: "full",
+        body: "Using user mapping and behavioral analysis, I identified how users currently discover music and where AI-powered recommendations could add value. Storyboarding helped explore real-world discovery scenarios throughout a user's day.",
+      },
+      { type: "media", size: "small", src: projectAssetPath("spotify-design-challenge/spotify-mapping-DbUNhqnS.png") },
+      { type: "media", size: "small", src: projectAssetPath("spotify-design-challenge/spotify-feature-1-BoTIKxlu.png") },
+      {
+        type: "specifics",
+        size: "full",
+        body: "Rapid prototyping in Figma translated these ideas into mid-fidelity product concepts, reinforcing the value of user research, concept development, and fast iteration in shaping AI-assisted product experiences.",
+        items: ["Figma", "Rapid Design", "Mockups", "Storyboards", "Mapping", "User Flows"],
+      },
+      { type: "media", size: "small", src: projectAssetPath("spotify-design-challenge/spotify-feature-2-8ek3l07_.png") },
+      { type: "media", size: "small", src: projectAssetPath("spotify-design-challenge/spotify-screen-1-s0KnOBuJ.png") },
+      { type: "media", size: "small", src: projectAssetPath("spotify-design-challenge/spotify-screen-2-BkFAA7h3.png") },
+      { type: "media", size: "small", src: projectAssetPath("spotify-design-challenge/spotify-screen-3-BeCdeFN5.png") },
+      { type: "media", size: "small", src: projectAssetPath("spotify-design-challenge/spotify-screen-4-DW6KrOa3.png") },
+      { type: "media", size: "big", src: projectAssetPath("spotify-design-challenge/spotify-screen-5-sajHC4fM.png") },
+    ],
   },
   {
     id: "cultural-integration-social-app",
@@ -237,6 +352,28 @@ const projects = [
       projectAssetPath("cultural-integration-social-app/postcardly3.png"),
     ],
     thumbnail: projectAssetPath("cultural-integration-social-app/thumbnail.png"),
+    // Template: big picture, 2 paragraphs, 2 small pictures, specifics.
+    content: [
+      { type: "media", size: "big", src: projectAssetPath("cultural-integration-social-app/postcardly1.png") },
+      {
+        type: "text",
+        size: "full",
+        body: "This was the first project of my Master's degree and the first where I worked with a team of international students. We developed a service for foreigners to connect with and integrate into a new culture and place.",
+      },
+      {
+        type: "text",
+        size: "full",
+        body: "The app prototype, nicknamed Postcardly, was my first substantial Figma project. We aimed to create a new version of the prototype every week, gradually moving from basic wireframes to an interactive showcase of user flows.",
+      },
+      { type: "media", size: "small", src: projectAssetPath("cultural-integration-social-app/postcardly2.png") },
+      { type: "media", size: "small", src: projectAssetPath("cultural-integration-social-app/postcardly3.png") },
+      {
+        type: "specifics",
+        size: "full",
+        body: "The project was also a new way of approaching design from user needs directly, gathering data from 14 real-world users and creating personas to guide the resulting prototype.",
+        items: ["Figma", "Rapid Design", "Mockups", "Storyboards", "Mapping", "User Flows", "Affinity Diagramming", "User Research", "Market Research"],
+      },
+    ],
   },
 ];
 
