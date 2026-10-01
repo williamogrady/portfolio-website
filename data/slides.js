@@ -42,7 +42,7 @@ const slides = {
   about: {
     title: "About me",
     image: {
-      src: publicPath("/assets/images/about/profile-image.JPG"),
+      src: publicPath("/assets/images/about/profile-photo.jpeg"),
       alt: "William O'Grady",
     },
     description: [
