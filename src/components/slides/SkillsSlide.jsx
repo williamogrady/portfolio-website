@@ -1,70 +1,32 @@
-import { useEffect, useRef, useState } from "react";
-
 import skills from "../../../data/skills";
-import SkillsMenu from "./skills/SkillsMenu";
-import SkillsDetail from "./skills/SkillsDetail";
-
-const skillCount = skills.length;
 
 function SkillsSlide() {
-  const containerRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    let animationFrame = 0;
-
-    function updateActiveIndex() {
-      const container = containerRef.current;
-
-      if (!container) {
-        return;
-      }
-
-      const containerRect = container.getBoundingClientRect();
-      const scrollableHeight = containerRect.height - window.innerHeight;
-
-      if (scrollableHeight <= 0) {
-        setActiveIndex(currentIndex => (currentIndex === 0 ? currentIndex : 0));
-        return;
-      }
-
-      const scrolled = Math.min(Math.max(-containerRect.top, 0), scrollableHeight);
-      const fraction = scrolled / scrollableHeight;
-      const nextIndex = Math.min(
-        skillCount - 1,
-        Math.max(0, Math.round(fraction * (skillCount - 1)))
-      );
-
-      setActiveIndex(currentIndex => (currentIndex === nextIndex ? currentIndex : nextIndex));
-    }
-
-    function scheduleUpdate() {
-      window.cancelAnimationFrame(animationFrame);
-      animationFrame = window.requestAnimationFrame(updateActiveIndex);
-    }
-
-    updateActiveIndex();
-    window.addEventListener("scroll", scheduleUpdate, { passive: true });
-    window.addEventListener("resize", scheduleUpdate);
-
-    return () => {
-      window.cancelAnimationFrame(animationFrame);
-      window.removeEventListener("scroll", scheduleUpdate);
-      window.removeEventListener("resize", scheduleUpdate);
-    };
-  }, []);
-
   return (
-    <div className="skills-slide" ref={containerRef} style={{ "--skill-count": skillCount }}>
-      <div className="skills-slide__stage">
-        <div className="skills-slide__heading">
-          <h2 className="skills-slide__title">Skills</h2>
-        </div>
+    <div className="skills-slide">
+      <h2 className="skills-slide__title">Skills</h2>
 
-        <div className="skills-slide__panel">
-          <SkillsMenu skills={skills} activeIndex={activeIndex} />
-          <SkillsDetail skills={skills} activeIndex={activeIndex} />
-        </div>
+      <div className="skills-rows">
+        {skills.map((skill, index) => (
+          <section
+            key={skill.id}
+            className={`skills-row${index % 2 === 1 ? " skills-row--flip" : ""}`}
+          >
+            <div className="skills-row__media">
+              <img src={skill.image} alt="" aria-hidden="true" loading="lazy" />
+            </div>
+            <div className="skills-row__body">
+              <h3 className="skills-row__label">{skill.label}</h3>
+              <p className="skills-row__paragraph">{skill.paragraph}</p>
+              {skill.tags.length > 0 && (
+                <ul className="skills-row__tags">
+                  {skill.tags.map(tag => (
+                    <li key={tag}>{tag}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   );
